@@ -9,4 +9,4 @@ function priceOfBirthdayParty(input) {
     console.log(totalBudget);
 }
 
-priceOfBirthdayParty(["2250"]);
+priceOfBirthdayParty(['2250']);

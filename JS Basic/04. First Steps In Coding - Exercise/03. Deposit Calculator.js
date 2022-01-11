@@ -8,4 +8,4 @@ function depositCalculator(input) {
    console.log(total);
 }
 
-depositCalculator(["200", "3", "5.7"]);
+depositCalculator(['200', '3', '5.7']);

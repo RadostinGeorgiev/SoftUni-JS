@@ -8,4 +8,4 @@ function bookList(input) {
     console.log(hours);
 }
 
-bookList(["432", "15", "4"]);
+bookList(['432', '15', '4']);

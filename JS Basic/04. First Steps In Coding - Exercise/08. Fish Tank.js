@@ -10,4 +10,4 @@ function fishTankVolume(input) {
     console.log(volumeFishTank);
 }
 
-fishTankVolume(["105", "77", "89", "18.5"]);
+fishTankVolume(['105', '77', '89', '18.5']);

@@ -5,4 +5,4 @@ function curencyConvertor(input) {
     console.log(bgn);
 }
 
-curencyConvertor(["100"]);
+curencyConvertor(['100']);
