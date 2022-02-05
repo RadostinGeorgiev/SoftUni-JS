@@ -1,5 +1,6 @@
 function factory(library, orders) {
     const result = [];
+    
     for (const order of orders) {
       const device = Object.assign({}, order.template);
 
