@@ -21,9 +21,9 @@ function solve() {
 
             const table = document.querySelector('#tbody');
             table.appendChild(createRow());
+            budget += Number(salaryElement.value);
             inputs.forEach(el => el.value = '');
 
-            budget += Number(salary);
             messageElement.textContent = budget.toFixed(2);
         }
     }
@@ -85,7 +85,7 @@ function solve() {
         const element = document.createElement(type);
 
         attr
-            ? element.setAttribute(attr, value.)
+            ? element.setAttribute(attr, value)
             : element.textContent = value;
 
         parent
