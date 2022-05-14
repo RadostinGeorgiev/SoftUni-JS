@@ -3,11 +3,9 @@ function mergeArrays(firstArray, secondArray) {
     let output = [];
 
     for (let index = 0; index < firstArray.length; index++) {
-        if (index % 2 !== 0) {
-            output[index] = firstArray[index] + secondArray[index];
-        } else {
-            output[index] = Number(firstArray[index]) + Number(secondArray[index]);
-        }
+        index % 2 !== 0
+            ? output[index] = firstArray[index] + secondArray[index]
+            : output[index] = Number(firstArray[index]) + Number(secondArray[index]);
     }
 
     console.log(output.join(' - '));

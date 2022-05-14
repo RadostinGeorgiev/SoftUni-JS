@@ -5,12 +5,10 @@ function addAndSubtract(array) {
 
     for (let index = 0; index < array.length; index++) {
         sumArray += array[index];
-        
-        if (array[index] % 2 != 0) {
-            array[index] -= index;
-        } else {
-            array[index] += index;
-        }
+
+        array[index] % 2 != 0
+            ? array[index] -= index
+            : array[index] += index;
 
         sumNewArray += array[index];
     }
