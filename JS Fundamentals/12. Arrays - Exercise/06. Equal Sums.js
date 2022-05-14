@@ -7,7 +7,7 @@ function equalSums(array) {
 
     let isFound = false;
 
-    for (let index1 = 0; index1 < array.length; index1++) {
+    for (let index1 = 1; index1 < array.length - 1; index1++) {
         let leftSum = 0;
         let rightSum = 0;
 
