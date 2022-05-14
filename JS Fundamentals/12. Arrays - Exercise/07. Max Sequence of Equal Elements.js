@@ -1,9 +1,7 @@
 function maxSequenceOfEqualElements(array) {
 
-    let firstIndex = 0;
-    let maxFirstIndex = 0;
-    let sequenceLength = 1;
-    let maxSequenceLength = 0;
+    let firstIndex = 0; maxFirstIndex = 0;
+    let sequenceLength = 1; maxSequenceLength = 0;
 
     for (let index = 0; index < array.length - 1; index++) {
         if (array[index] === array[index + 1]) {
