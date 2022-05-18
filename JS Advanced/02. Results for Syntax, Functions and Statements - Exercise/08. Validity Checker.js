@@ -8,9 +8,7 @@ function validityChecker(x1, y1, x2, y2) {
     }
 
     function checkValidity(x1, y1, x2, y2) {
-        Number.isInteger(distance(x1, y1, x2, y2))
-            ? console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is valid`)
-            : console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} is invalid`);
+        console.log(`{${x1}, ${y1}} to {${x2}, ${y2}} ${Number.isInteger(distance(x1, y1, x2, y2)) ? 'is valid' : 'is invalid'} `);
     }
 }
 
