@@ -1,8 +1,7 @@
 function arrayRotation(array, number) {
 
     for (let iterations = 1; iterations <= number; iterations++) {
-        let temp = array.shift();
-        array.push(temp);
+        array.push(array.shift());
     }
 
     console.log(array.join(' '));
