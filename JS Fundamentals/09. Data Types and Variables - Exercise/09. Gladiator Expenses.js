@@ -1,8 +1,8 @@
 function gladiatorExpenses(lostFights, helmetPrice, swordPrice, shieldPrice, armorPrice) {
-    let brokenHelmets = parseInt(lostFights / 2);
-    let brokenSwords = parseInt(lostFights / 3);
-    let brokenShields = parseInt(lostFights / 6);
-    let brokenArmors = parseInt(lostFights / 12);
+    const brokenHelmets = parseInt(lostFights / 2);
+    const brokenSwords = parseInt(lostFights / 3);
+    const brokenShields = parseInt(lostFights / 6);
+    const brokenArmors = parseInt(lostFights / 12);
 
     let expenses =
         brokenHelmets * helmetPrice +
