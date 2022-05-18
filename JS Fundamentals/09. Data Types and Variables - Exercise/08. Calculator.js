@@ -1,22 +1,6 @@
 function calculator(firstNumber, operator, secondNumber) {
-
-    switch (operator) {
-        case '+':
-            console.log((firstNumber + secondNumber).toFixed(2));
-            break;
-        case '-':
-            console.log((firstNumber - secondNumber).toFixed(2));
-            break;
-        case '*':
-            console.log((firstNumber * secondNumber).toFixed(2));
-            break;
-        case '/':
-            console.log((firstNumber / secondNumber).toFixed(2));
-            break;
-        case '%':
-            console.log((firstNumber % secondNumber).toFixed(2));
-            break;
-    }
+    
+    console.log(eval(firstNumber + operator + secondNumber).toFixed(2));
 }
 
 calculator(5, '+', 10);
