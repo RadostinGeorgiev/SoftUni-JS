@@ -13,9 +13,10 @@ function maxSequenceOfEqualElements(array) {
             sequenceLength = 1;
         }
 
-        sequenceLength > maxSequenceLength
-            ? maxSequenceLength = sequenceLength
-            : maxFirstIndex = firstIndex;
+        if (sequenceLength > maxSequenceLength) {
+            maxSequenceLength = sequenceLength;
+            maxFirstIndex = firstIndex;
+        }
     }
 
     console.log(array.slice(maxFirstIndex, maxFirstIndex + maxSequenceLength).join(' '));
