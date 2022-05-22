@@ -1,5 +1,6 @@
 function biggestElement(array) {
-    return array.flat(Infinity)
+    return array
+        .flat(Infinity)
         .sort((a, b) => a - b)
         .pop();
 }
