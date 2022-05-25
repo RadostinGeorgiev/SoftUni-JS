@@ -1,9 +1,5 @@
-function diagonalAttack(input) {
-    let array = [];
-
-    for (let index = 0; index < input.length; index++) {
-        array[index] = input[index].split(' ').map(Number);
-    }
+function diagonalAttack(array) {
+    array = array.map(r => r.split(' ').map(Number));
 
     let primaryDiagonalSum = array.map((r, i) => r[i]).reduce((a, b) => a + b);
     let secondaryDiagonalSum = array.map((r, i) => r[array.length - 1 - i]).reduce((a, b) => a + b);
