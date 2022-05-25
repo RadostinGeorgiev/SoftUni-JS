@@ -1,6 +1,7 @@
 function sortArrayBy2Criteria(array) {
-    array.sort((a, b) => a.length - b.length || a.localeCompare(b))
-        .forEach(x => console.log(x));
+    console.log(array.sort((a, b) => a.length - b.length ||
+                                     a.localeCompare(b))
+        .join('\n'));
 }
 
 sortArrayBy2Criteria(['alpha', 'beta', 'gamma']);

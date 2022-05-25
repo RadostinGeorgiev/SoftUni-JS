@@ -11,7 +11,7 @@ function addAndRemoveElements(command) {
 
     array.length == 0
         ? console.log("Empty")
-        : array.forEach(x => console.log(x));
+        : console.log(array.join('\n'));
 }
 
 addAndRemoveElements(['add', 'add', 'add', 'add']);
