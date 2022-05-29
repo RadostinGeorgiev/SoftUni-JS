@@ -1,5 +1,5 @@
 function createAssemblyLine(params) {
-    let decorator = {
+    return {
         hasClima(object) {
             object.temp = 21;
             object.tempSettings = 21;
@@ -25,20 +25,14 @@ function createAssemblyLine(params) {
             object.checkDistance = (distance) => {
                 let message = '';
 
-                if (distance < 0.1) {
-                    message = 'Beep! Beep! Beep!';
-                } else if(distance < 0.25){
-                    message = 'Beep! Beep!';
-                } else if(distance < 0.5){
-                    message = 'Beep!';
-                }
+                if (distance < 0.1) { message = 'Beep! Beep! Beep!'; }
+                else if (distance < 0.25) { message = 'Beep! Beep!'; }
+                else if (distance < 0.5) { message = 'Beep!'; }
 
                 console.log(message);
             }
         },
     }
-
-    return decorator;
 }
 
 const assemblyLine = createAssemblyLine();

@@ -1,18 +1,15 @@
 function factory(library, orders) {
-    const result = [];
-    
-    for (const order of orders) {
-      const device = Object.assign({}, order.template);
+  const array = [];
 
-      for (const part of order.parts) {
-        device[part] = library[part];
-      }
+  orders.forEach(o => {
+      const device = Object.assign({}, o.template);
+      o.parts.forEach(p => device[p] = library[p]);
+      array.push(device);
+  });
 
-      result.push(device);
-    }
-
-    return result;
+  return array;
 }
+
 
 const library = {
     print: function () {

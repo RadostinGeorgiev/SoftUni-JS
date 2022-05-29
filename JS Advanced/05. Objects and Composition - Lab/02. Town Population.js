@@ -1,20 +1,16 @@
 function townPopulation(input) {
-    const towns = {};
+    const city = {};
 
-    for (const data of input) {
-        const tokens = data.split(' <-> ');
-        const town = tokens[0];
-        let population = Number(tokens[1]);
+    input.forEach(x => {
+        [name, population] = x.split(' <-> ');
 
-        if (towns.hasOwnProperty(town)) {
-            population += towns[town];
-        }
+        city.hasOwnProperty(name)
+            ? city[name] += Number(population)
+            : city[name] = Number(population);
+    });
 
-        towns[town] = population;
-    }
-
-    for (const town in towns) {
-        console.log(`${town} : ${towns[town]}`);
+    for (const name in city) {
+        console.log(`${name} : ${city[name]}`);
     }
 }
 
