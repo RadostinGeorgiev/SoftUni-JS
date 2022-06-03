@@ -22,9 +22,9 @@ function janNotation(input) {
         }
     }
 
-    numbers.length > 1
-        ? console.log('Error: too many operands!')
-        : console.log(numbers[0]);
+    numbers.length == 1
+        ? console.log(numbers.shift())
+        : console.log('Error: too many operands!');
 }
 
 // janNotation([3, 4, '+']);

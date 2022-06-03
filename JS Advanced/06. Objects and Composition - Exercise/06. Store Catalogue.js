@@ -1,25 +1,26 @@
-function storeCatalogue(input) {
-    let products = {};
+function storeCatalogue(array) {
+    const products = {};
 
-    for (const item of input) {
-        let [name, price] = item.split(' : ');
+    array.forEach(x => {
+        [product, price] = x.split(' : ');
         price = Number(price);
 
-        let firstLetter = name[0]
+        let firstLetter = product[0];
         if (!products.hasOwnProperty(firstLetter)) {
             products[firstLetter] = {};
         }
 
-        products[firstLetter][name] = price;
-    }
+        products[firstLetter][product] = price;
+    });
 
-    let sortedKeys = Object.keys(products).sort((a, b) => a.localeCompare(b));
-    for (const key of sortedKeys) {
-        console.log(key);
-
-        let items = Object.entries(products[key]).sort((a, b) => a[0].localeCompare(b[0]));
-        items.forEach((el) => console.log(`  ${el[0]}: ${el[1]}`))
-    }
+    Object.keys(products)
+        .sort()
+        .forEach(k => {
+            console.log(k);
+            Object.keys(products[k])
+                .sort((a, b) => a.localeCompare(b))
+                .map(p => console.log(`  ${p}: ${products[k][p]}`));
+        });
 }
 
 storeCatalogue([

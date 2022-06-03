@@ -1,22 +1,21 @@
-function lowestPricesInCities(input) {
+function lowestPricesInCities(array) {
     const products = {};
 
-    for (const productInfo of input) {
-        let [townName, productName, productPrice] = productInfo.split(' | ');
-        productPrice = Number(productPrice);
+    array.forEach(x => {
+        [town, product, price] = x.split(' | ');
+        price = Number(price);
 
-        if (!products.hasOwnProperty(productName)) {
-            products[productName] = {};
+        if (!products.hasOwnProperty(product)) {
+            products[product] = [];
         }
 
-        products[productName][townName] = productPrice;
-    }
+        products[product].push({ town, price });
+    });
 
-    for (const element in products) {
-        const sorted = Object.entries(products[element]).sort((a, b) => a[1] - b[1]);
-
-        console.log(`${element} -> ${sorted[0][1]} (${sorted[0][0]})`);
-    }
+    Object.entries(products).forEach(([product, prices]) => {
+        prices.sort((a, b) => a.price - b.price);
+        console.log(`${product} -> ${prices[0].price} (${prices[0].town})`)
+    });
 }
 
 lowestPricesInCities([

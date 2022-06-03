@@ -1,7 +1,7 @@
 function createSortedList(input) {
     const list = [];
 
-    return sortedList = {
+    return {
         add(element) {
             list.push(element);
             list.sort((a, b) => a - b);
@@ -11,9 +11,7 @@ function createSortedList(input) {
                 list.splice(index, 1);
             }
         },
-        get(index) {
-            return list[index];
-        },
+        get(index) { return list[index]; },
         get size() { return list.length },
     }
 }

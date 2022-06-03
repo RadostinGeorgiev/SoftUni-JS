@@ -1,26 +1,24 @@
 function carFactory(order) {
     const storage = {
         engine: {
-            'Small engine': {power: 90, volume: 1800},
-            'Normal engine': {power: 120, volume: 2400},
-            'Monster engine': {power: 200, volume: 3500},
+            'Small engine': { power: 90, volume: 1800 },
+            'Normal engine': { power: 120, volume: 2400 },
+            'Monster engine': { power: 200, volume: 3500 },
             get(power) {
                 if (power <= 90) return this['Small engine'];
                 if (power <= 120) return this['Normal engine'];
-                if (power <= 200) return this['Monster engine'];
+                return this['Monster engine'];
             }
         },
 
         carriage: {
-            Hatchback: {type: 'hatchback', color: ''},
-            Coupe: {type: 'coupe', color: ''},
+            Hatchback: { type: 'hatchback' },
+            Coupe: { type: 'coupe' },
             get(type, color) {
-                if (type === 'hatchback') {
+                if (type == 'hatchback') {
                     this.Hatchback.color = color;
                     return this.Hatchback
-                }
-
-                if (type === 'coupe') {
+                } else {
                     this.Coupe.color = color;
                     return this.Coupe;
                 }
@@ -29,9 +27,7 @@ function carFactory(order) {
 
         wheels: {
             get(size) {
-                if (size % 2 === 0) {
-                    this.size = size--;
-                }
+                if (size % 2 == 0) { this.size = size--; }
 
                 return new Array(4).fill(size);
             }

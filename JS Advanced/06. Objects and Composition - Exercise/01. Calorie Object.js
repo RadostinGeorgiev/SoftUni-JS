@@ -1,14 +1,11 @@
 function calorieObject(array) {
-    let food = {};
+    const object = {};
 
-    while (array.length > 0) {
-        const name = array.shift();
-        const calories = Number(array.shift());
-
-        food[name] = calories;
+    for (let index = 0; index < array.length; index += 2) {
+        object[array[index]] = Number(array[index + 1]);
     }
 
-    console.log(food);
+    console.log(object);
 }
 
 calorieObject(['Yoghurt', '48', 'Rise', '138', 'Apple', '52']);
