@@ -2,16 +2,13 @@ function solve() {
    document.querySelector('#searchBtn').addEventListener('click', onClick);
 
    function onClick() {
-      let fields = Array.from(document.querySelectorAll('tbody td'));
-      const searchedText = document.querySelector('#searchField').value;
+      const searchedText = document.getElementById('searchField');
+      Array.from(document.querySelectorAll('tbody tr')).forEach(x => x.classList.remove('select'));
 
-      const rows = Array.from(document.querySelectorAll('tbody tr'));
-      rows.forEach(row => row.classList.remove('select'));
+      Array.from(document.querySelectorAll('tbody td'))
+         .filter(x => x.textContent.includes(searchedText.value))
+         .map(x => x.parentElement.classList.add('select'));
 
-      fields.forEach(field => {
-         if (field.textContent.includes(searchedText)) {
-            field.parentElement.classList.add('select');
-         }
-      });
+      searchedText.value = '';
    }
 }

@@ -2,47 +2,53 @@ function solve() {
    document.querySelector('#btnSend').addEventListener('click', onClick);
 
    function onClick() {
-      let restaurantsInfo = JSON.parse(document.querySelector('#inputs textarea').value);
-      let restaurants = [];
+      displayOutput(getTheBest(createRestaurantsList()));
+   }
 
-      for (const restaurantInfo of restaurantsInfo) {
-         let [restaurantName, workersInfo] = restaurantInfo.split(' - ');
-         let restaurant = {};
+   function createRestaurantsList() {
+      const restaurants = {};
 
-         if (!restaurants.some(r => r.name === restaurantName)) {
-            restaurant['name'] = restaurantName;
-            restaurant['workers'] = [];
-            restaurant['average'] = function () {
-               return this['workers'].reduce((a, b) => a + b.salary, 0) / this['workers'].length || 0;
-            }
+      JSON.parse(document.querySelector('textarea').value)
+         .forEach(x => {
+            [name, data] = x.split(' - ');
 
-            restaurants.push(restaurant);
-         } else {
-            restaurant = restaurants.find(r => r.name === restaurantName);
-         }
-
-         let workers = workersInfo.split(', ');
-
-         for (const workerInfo of workers) {
-            let [workerName, salary] = workerInfo.split(' ');
-            salary = Number(salary);
-
-            const worker = {
-               name: workerName,
-               salary: salary,
-               toString() { return `Name: ${this.name} With Salary: ${this.salary}` },
+            if (!restaurants.hasOwnProperty(name)) {
+               restaurants[name] = {
+                  workers: [],
+                  averageSalary: function () {
+                     return this.workers.reduce((a, b) => a + b.salary, 0) / this.workers.length || 0;
+                  },
+               }
             };
 
-            restaurant['workers'].push(worker);
-         }
-      }
+            data.split(', ')
+               .forEach(w => {
+                  [worker, salary] = w.split(' ');
+                  salary = Number(salary);
 
-      restaurants.sort((a, b) => b.average() - a.average());
-      restaurants[0].workers.sort((a, b) => b.salary - a.salary);
+                  restaurants[name].workers.push({
+                     worker,
+                     salary,
+                     toString() { return `Name: ${this.worker} With Salary: ${this.salary}` },
+                  });
+               });
+         });
 
-      document.querySelector('#bestRestaurant p')
-         .textContent = `Name: ${restaurants[0].name} Average Salary: ${restaurants[0].average().toFixed(2)} Best Salary: ${restaurants[0].workers[0].salary.toFixed(2)}`;
+      return restaurants;
+   }
 
-      document.querySelector('#workers p').textContent = restaurants[0].workers.map(el => el.toString()).join(' ');
+   function getTheBest(data) {
+      return Object.entries(data).sort((a, b) => b[1].averageSalary() - a[1].averageSalary())[0];
+   };
+
+   function displayOutput(data) {
+      const sorted = data[1].workers.sort((a, b) => b.salary - a.salary);
+
+      document.querySelector('#bestRestaurant p').textContent =
+         `Name: ${data[0]} Average Salary: ${data[1].averageSalary().toFixed(2)} Best Salary: ${sorted[0].salary.toFixed(2)} `;
+
+      document.querySelector('#workers p').textContent = data[1].workers
+         .map(x => x.toString())
+         .join(' ');
    }
 }

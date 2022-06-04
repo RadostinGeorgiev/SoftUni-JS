@@ -1,22 +1,16 @@
 function solve() {
-  const words = document.getElementById('text').value;
-  const naming = document.getElementById('naming-convention').value;
-
-  function changeCase(input) {
-    return input.toLowerCase()
-      .split(' ')
-      .map(el => el[0].toUpperCase() + el.slice(1))
-      .join('');
+  const actions = {
+    'Camel Case': () => text = text[0].toLowerCase() + text.slice(1),
+    'Pascal Case': () => text,
+    'default': () => 'Error!',
   }
 
-  let result = changeCase(words);
+  let text = document.getElementById('text').value
+    .toLowerCase()
+    .split(' ')
+    .map(x => x = x[0].toUpperCase() + x.slice(1))
+    .join('');
+  const convention = document.getElementById('naming-convention').value;
 
-  if (naming === 'Camel Case') {
-    result = result[0].toLowerCase() + result.slice(1);
-  } else if (naming === 'Pascal Case') {
-  } else {
-    result = 'Error!';
-  }
-
-  document.getElementById('result').textContent = result;
+  document.getElementById('result').textContent = (actions[convention] || actions['default'])();
 }

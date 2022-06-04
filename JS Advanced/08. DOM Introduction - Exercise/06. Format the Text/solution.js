@@ -1,16 +1,13 @@
 function solve() {
-  let text = document.querySelector('#input').value
+  const text = document.getElementById('input').value
     .split('.')
-    .filter((el) => el)
-    .map((el) => el.trim().concat('.'));
-  let output = document.querySelector('#output');
+    .filter(x => x)
+    .map(x => x.concat('.'));
+  const output = document.getElementById('output');
 
-  const paragraphs = Math.ceil(text.length / 3);
-
-  for (let index = 0; index < paragraphs; index++) {
-    let paragraph = document.createElement('p');
-    let innerText = document.createTextNode(`${text.splice(0, 3).join(' ')}`);
-    paragraph.appendChild(innerText);
+  while (text.length) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = `${text.splice(0, 3).join(' ')}`;
 
     output.appendChild(paragraph);
   }
