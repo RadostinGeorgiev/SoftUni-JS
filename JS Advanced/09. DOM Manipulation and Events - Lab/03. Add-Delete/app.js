@@ -4,14 +4,14 @@ function addItem() {
     let liElement = document.createElement('li');
     liElement.textContent = input.value;
 
-    let a = document.createElement('a');
-    a.textContent = '[Delete]';
-    a.href = '#';
-    a.addEventListener('click', function () {
-        a.parentNode.remove()
+    let aElement = document.createElement('a');
+    aElement.textContent = '[Delete]';
+    aElement.href = '#';
+    aElement.addEventListener('click', function () {
+        aElement.parentNode.remove()
     });
 
-    liElement.appendChild(a);
+    liElement.appendChild(aElement);
 
     document.querySelector('#items').appendChild(liElement);
 

@@ -1,8 +1,9 @@
 function attachGradientEvents() {
-    let gradient = document.querySelector('#gradient');
+    let gradient = document.getElementById('gradient');
+    gradient.addEventListener('mousemove', onMouseMove);
 
-    gradient.addEventListener('mousemove', function calculatePosition(e) {
-        let result = Math.floor(e.offsetX / gradient.clientWidth * 100);
-        document.querySelector('#result').textContent = `${result}%`;
-    });
+    function onMouseMove(ev) {
+        const result = Math.floor(ev.offsetX / gradient.clientWidth * 100);
+        document.getElementById('result').textContent = `${result}%`;
+    }
 }

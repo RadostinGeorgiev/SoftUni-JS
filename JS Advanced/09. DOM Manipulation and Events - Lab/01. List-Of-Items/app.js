@@ -1,6 +1,6 @@
 function addItem() {
-    const input = document.querySelector('#newItemText');
-    const items = document.querySelector('#items');
+    const input = document.getElementById('newItemText');
+    const items = document.getElementById('items');
 
     let liElement = document.createElement('li');
     liElement.textContent = input.value;

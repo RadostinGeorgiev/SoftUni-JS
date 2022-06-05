@@ -1,7 +1,8 @@
 function validate() {
-    document.querySelector('#email').addEventListener('change', onChange);
+    document.getElementById('email')
+        .addEventListener('change', onChange);
 
-    function onChange({ target }) {
+    function onChange({target}) {
         const pattern = /^[a-z]+@[a-z]+\.[a-z]+$/;
 
         pattern.test(target.value)

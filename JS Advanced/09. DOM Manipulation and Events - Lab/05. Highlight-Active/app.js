@@ -1,14 +1,15 @@
 function focused() {
-    Array.from(document.querySelectorAll('input')).forEach(f => {
-        f.addEventListener('focus', onFocus);
-        f.addEventListener('blur', onBlur);
-    });
+    [...document.querySelectorAll('div input')]
+        .forEach(x => {
+            x.addEventListener('focus', onFocus);
+            x.addEventListener('blur', onBlur);
+        })
 
-    function onFocus(ev) {
-        ev.target.parentNode.classList.add('focused');
+    function onFocus({target}) {
+        target.parentElement.classList.add('focused');
     }
 
-    function onBlur(ev) {
-        ev.target.parentNode.classList.remove('focused');
+    function onBlur({target}) {
+        target.parentElement.classList.remove('focused');
     }
 }
