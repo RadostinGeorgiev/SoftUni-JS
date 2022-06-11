@@ -1,12 +1,13 @@
 function addItem() {
-    const text = document.querySelector('#newItemText');
-    const value = document.querySelector('#newItemValue');
+    const textInput = document.getElementById('newItemText');
+    const valueInput = document.getElementById('newItemValue');
 
-    let optElement = document.createElement('option');
-    optElement.textContent = text.value;
-    optElement.value = value.value;
-
-    document.querySelector('#menu').appendChild(optElement);
-    text.value = '';
-    value.value = '';
+    const optionElement = document.createElement('option');
+    optionElement.textContent = textInput.value;
+    optionElement.value = valueInput.value;
+    
+    document.getElementById('menu').appendChild(optionElement);
+    
+    textInput.value ='';
+    valueInput.value = '';
 }

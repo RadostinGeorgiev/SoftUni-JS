@@ -1,24 +1,21 @@
 function lockedProfile() {
-    Array.from(document.querySelectorAll('.profile button'))
-        .forEach(el => el.addEventListener('click', onToggle));
+    document.getElementById('main').addEventListener('click', onShowMoreClick);
 
-    function onToggle(ev) {
-        const radioButton = ev.target.parentElement.querySelector('[type=radio]:checked');
-        
-        if (radioButton.value == 'unlock') {
-            const button = ev.target;
+    function onShowMoreClick({ target }) {
+        if (target.tagName == 'BUTTON') {
+            const radioButton = target.parentElement.querySelector('[type=radio]');
 
-            button.textContent = button.textContent == 'Show more'
-                ? 'Hide it'
-                : 'Show more';
+            if (!radioButton.checked) {
+                const hiddenFields = target.parentElement.querySelector('div');
 
-            const moreInfoElements = Array
-                .from(ev.target.parentElement.querySelectorAll('div'))
-                .find(el => el.id.includes('HiddenFields'));
+                target.textContent = target.textContent == 'Show more'
+                    ? 'Hide it'
+                    : 'Show more';
 
-            moreInfoElements.style.display = moreInfoElements.style.display == 'inline-block'
-                ? 'none'
-                : 'inline-block';
-        };
+                hiddenFields.style.display = hiddenFields.style.display == 'inline-block'
+                    ? 'none'
+                    : 'inline-block';
+            }
+        }
     }
 }

@@ -1,15 +1,16 @@
 function create(words) {
+   const output = document.getElementById('content');
 
    words.forEach(w => {
       const divElement = document.createElement('div');
+
       const pElement = document.createElement('p');
-      pElement.style.display = 'none';
       pElement.textContent = w;
+      pElement.style.display = 'none';
       divElement.appendChild(pElement);
 
-      divElement.addEventListener('click', (ev) => {
-         ev.target.querySelector('p').style.display = 'block'});
+      divElement.addEventListener('click', () => pElement.style.display = 'block')
 
-      document.querySelector('#content').appendChild(divElement);
+      output.appendChild(divElement);
    });
 }

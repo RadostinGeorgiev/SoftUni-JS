@@ -18,6 +18,6 @@ function attachEventsListeners() {
         const inputUnits = document.getElementById('inputUnits').value;
         const outputUnits = document.getElementById('outputUnits').value;
 
-        document.querySelector('#outputDistance').value = input * multiplier[inputUnits] / multiplier[outputUnits];
+        document.getElementById('outputDistance').value = input * multiplier[inputUnits] / multiplier[outputUnits];
     }
 }

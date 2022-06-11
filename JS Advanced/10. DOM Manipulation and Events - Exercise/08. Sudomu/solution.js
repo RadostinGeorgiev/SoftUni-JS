@@ -1,12 +1,12 @@
 function solve() {
-    const [checkButton, clearButton] = Array.from(document.querySelectorAll('button'));
+    const [checkButton, clearButton] = [...document.querySelectorAll('button')];
 
     checkButton.addEventListener('click', onCheckClick);
     clearButton.addEventListener('click', onClearClick);
 
     const table = document.querySelector('table');
     const result = document.querySelector('#check p');
-    const fields = Array.from(document.querySelectorAll('input[type=number]'));
+    const fields = [...document.querySelectorAll('input[type=number]')];
 
 
     function onCheckClick(ev) {
@@ -32,16 +32,16 @@ function solve() {
         }
 
         function isNoDuplicatesInRow() {
-            return Array.from(document.querySelectorAll('tbody tr'))
-                .map(row => new Set(Array.from(row.querySelectorAll('input[type=number]'))
+            return [...document.querySelectorAll('tbody tr')]
+                .map(row => new Set([...row.querySelectorAll('input[type=number]')]
                     .map(c => c.value)))
                 .map(set => set.size == 3)
                 .every(b => b);
         }
 
         function isNoDuplicatesInColumn() {
-            let byRows = Array.from(document.querySelectorAll('tbody tr'))
-                .map(row => Array.from(row.querySelectorAll('input[type=number]'))
+            let byRows = [...document.querySelectorAll('tbody tr')]
+                .map(row => [...row.querySelectorAll('input[type=number]')]
                     .map(c => c.value));
 
             let byCols = byRows[0].map((col, i) => byRows.map(row => row[i]));

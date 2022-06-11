@@ -1,30 +1,18 @@
 function encodeAndDecodeMessages() {
-    const buttons = Array.from(document.querySelectorAll('#main button'));
-    
-    const encodeButton = buttons.find(el => el.textContent.includes('Encode'));
-    encodeButton.addEventListener('click', onClickEncode);
+    document.getElementById('container').addEventListener('click', onClick);
+    const textFields = [...document.getElementsByTagName('textarea')];
 
-    const decodeButton = buttons.find(el => el.textContent.includes('Decode'));
-    decodeButton.addEventListener('click', onClickDecode);
+    function onClick({ target }) {
+        if (target.tagName == 'BUTTON') {
+            const text = target.parentElement.querySelector('textarea');
 
-    function onClickEncode(ev) {
-        const text = ev.target.parentElement.querySelector('textarea');
+            const sign = target.textContent == 'Encode and send it' ? 1 : -1;
+            let convertedText = [...text.value]
+                .map(c => String.fromCharCode(c.charCodeAt(0) + sign))
+                .join('');
 
-        let codedText = [...text.value]
-            .map(c => String.fromCharCode(c.charCodeAt(0) + 1))
-            .join('');
-
-        text.value = '';
-        decodeButton.parentElement.querySelector('textarea').value = codedText;
-    }
-
-    function onClickDecode(ev) {
-        const text = ev.target.parentElement.querySelector('textarea');
-
-        let decodedText = [...text.value]
-            .map(c => String.fromCharCode(c.charCodeAt(0) - 1))
-            .join('');
-
-        text.value = decodedText;
+            textFields[0].value = '';
+            textFields[1].value = convertedText;
+        }
     }
 }

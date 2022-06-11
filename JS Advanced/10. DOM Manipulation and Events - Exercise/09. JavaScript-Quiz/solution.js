@@ -23,14 +23,14 @@ function solve() {
       sections[currentSection].style.display = 'block';
     } else {
       sections[currentSection].style.display = 'none';
-      
+
       result = document.querySelector('#results');
       result.style.display = 'block';
 
-      document.querySelector('.results-inner h1').textContent = 
-      rightAnswersCounter == 3
-        ? `You are recognized as top JavaScript fan!`
-        : `You have ${rightAnswersCounter} right answers`;
+      document.querySelector('.results-inner h1').textContent =
+        rightAnswersCounter == 3
+          ? `You are recognized as top JavaScript fan!`
+          : `You have ${rightAnswersCounter} right answers`;
     }
   }
 }
