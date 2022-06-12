@@ -1,11 +1,12 @@
 function listProcessor(input) {
+    const array = [];
+    
     const commands = {
         add,
         remove,
         print,
     };
 
-    let array = [];
     input.forEach(c => {
         const [command, value] = c.split(' ');
         commands[command](value);

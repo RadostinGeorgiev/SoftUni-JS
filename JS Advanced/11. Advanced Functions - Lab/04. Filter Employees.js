@@ -1,10 +1,10 @@
-function filterEmployees(data, criteria) {
-    const employees = JSON.parse(data);
-    const [name, value] = criteria.split("-");
+function filterEmployees(...input) {
+    const [criteria, value] = input.pop().split('-');
+    const employees = JSON.parse(input);
 
-    const filtered = name === 'all'
+    const filtered = criteria === 'all'
         ? employees
-        : employees.filter(e => e[name] === value);
+        : employees.filter(e => e[criteria] === value);
 
     filtered.forEach((e, i) =>
         console.log(`${i}. ${e.first_name} ${e.last_name} - ${e.email}`));

@@ -8,8 +8,8 @@ function cars(input) {
         print,
     };
 
-    for (const string of input) {
-        const params = string.split(' ');
+    input.forEach(x => {
+        const params = x.split(' ');
 
         const command = params.shift();
         const name = params.shift();
@@ -37,8 +37,8 @@ function cars(input) {
         }
 
         action[command]();
-    }
 
+    })
 
     function create(name) {
         objects[name] = {};
