@@ -12,8 +12,9 @@ function argumentInfo(...input) {
         types[type]++;
     });
 
-    Object.keys(types).sort((a, b) => types[b] - types[a])
+    Object.keys(types)
+        .sort((a, b) => types[b] - types[a])
         .forEach(k => console.log(`${k} = ${types[k]}`));
 }
 
-argumentInfo(56, 'cat', 42, function () { console.log('Hello world!'); });
+argumentInfo('cat', 42, function () { console.log('Hello world!'); });

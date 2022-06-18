@@ -1,13 +1,11 @@
 function calculator() {
     let [firstNumber, secondNumber, result] = '';
 
-    const calculate = {
+    return calculate = {
         init,
         add,
         subtract,
     };
-
-    return calculate;
 
     function init(selector1, selector2, resultSelector) {
         firstNumber = document.querySelector(selector1);

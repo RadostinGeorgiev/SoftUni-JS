@@ -1,5 +1,4 @@
-function add(number) {
-    let sum = number;
+function add(sum) {
 
     function internal(num) {
         sum += num;
