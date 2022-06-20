@@ -1,12 +1,12 @@
 function validate() {
-    let inputField = document.querySelector('#email');
+    let inputField = document.getElementById('email');
     const validMailPattern = /[a-z]+@[a-z]+\.[a-z]+/g
 
-    inputField.addEventListener('change', (ev) => {
-        let email = ev.target.value;
+    inputField.addEventListener('change', ({target}) => {
+        let email = target.value;
 
         validMailPattern.test(email)
-            ? ev.target.classList.remove('error')
-            : ev.target.classList.add('error');
+            ? target.classList.remove('error')
+            : target.classList.add('error');
     });
 }

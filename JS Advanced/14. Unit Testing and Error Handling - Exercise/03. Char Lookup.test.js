@@ -4,8 +4,8 @@ const { lookupChar } = require('./03. Char Lookup');
 describe('lookupChar checker', () => {
     describe('Happy path', () => {
         it('Expect correct symbol depending of the index', () => {
-            expect(lookupChar('Test', 0)).to.equal('T');
-            expect(lookupChar('Test', 3)).to.equal('t');
+            expect(lookupChar('Test', 0)).to.be.equal('T');
+            expect(lookupChar('Test', 3)).to.be.equal('t');
         });
     });
 
@@ -27,6 +27,7 @@ describe('lookupChar checker', () => {
         });
 
         it('Invalid index - out of string length', () => {
+            expect(lookupChar('', 0)).to.equal('Incorrect index');
             expect(lookupChar('Test', 5)).to.equal('Incorrect index');
             expect(lookupChar('Test', -1)).to.equal('Incorrect index');
         });

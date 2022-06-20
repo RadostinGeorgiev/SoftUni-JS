@@ -1,9 +1,9 @@
 function notify(message) {
-  let div = document.querySelector('#notification');
+  let div = document.getElementById('notification');
   div.textContent = message;
   div.style.display = 'block';
 
-  div.addEventListener('click', (ev) => {
-    ev.target.style.display = 'none';
+  div.addEventListener('click', ({target}) => {
+    target.style.display = 'none';
   });
 }

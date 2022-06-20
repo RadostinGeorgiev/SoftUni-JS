@@ -1,43 +1,45 @@
 function validate() {
-    document.querySelector('#submit')
+    document.getElementById('submit')
         .addEventListener('click', onSubmitClick);
 
-    document.querySelector('#company')
+    document.getElementById('company')
         .addEventListener('change', onCheckBoxClick);
 
     function onSubmitClick(ev) {
         ev.preventDefault();
 
-        const username = document.querySelector('#username');
+        const username = document.getElementById('username');
         const userNameRegex = /^[A-Za-z0-9]{3,20}$/;
-        changeState(username, userNameRegex.test(username.value));
+        const isUserNameValid = userNameRegex.test(username.value);
+        changeState(username, isUserNameValid);
 
-        const email = document.querySelector('#email');
+        const email = document.getElementById('email');
         const emailRegex = /^.*@.*\..*$/;
-        changeState(email, emailRegex.test(email.value));
+        const isEmailValid = emailRegex.test(email.value);
+        changeState(email, isEmailValid);
 
-        const password = document.querySelector('#password');
-        const confirmPassword = document.querySelector('#confirm-password');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirm-password');
         const passwordRegex = /^[\w]{5,15}$/;
 
-        const arePasswordsEqual = (password.value === confirmPassword.value &&
+        const arePasswordsValid = (password.value === confirmPassword.value &&
             passwordRegex.test(password.value));
-        changeState(password, arePasswordsEqual);
-        changeState(confirmPassword, arePasswordsEqual);
+        changeState(password, arePasswordsValid);
+        changeState(confirmPassword, arePasswordsValid);
 
-        const company = document.querySelector('#company');
+        const company = document.getElementById('company');
         const companyNumberRegex = /^[0-9]{4}$/;
         const isCheckBoxChecked = company.checked;
         let isValidCompanyNumber = false;
 
         if (isCheckBoxChecked) {
-            const companyNumberElement = document.querySelector('#companyNumber');
+            const companyNumberElement = document.getElementById('companyNumber');
             isValidCompanyNumber = companyNumberRegex.test(companyNumberElement.value)
             changeState(companyNumberElement, isValidCompanyNumber);
         }
 
-        const resultDivElement = document.querySelector('#valid');
-        const requiredFields = [isUserNameValid, isEmailValid, arePasswordsEqual];
+        const resultDivElement = document.getElementById('valid');
+        const requiredFields = [isUserNameValid, isEmailValid, arePasswordsValid];
         const areRequiredFieldsValid = requiredFields.every(x => x);
 
         resultDivElement.style.display =
@@ -53,8 +55,8 @@ function validate() {
         }
     }
 
-    function onCheckBoxClick(ev) {
-        document.querySelector('#companyInfo').style.display = e.target.checked
+    function onCheckBoxClick({target}) {
+        document.getElementById('companyInfo').style.display = target.checked
             ? 'block'
             : 'none';
     }

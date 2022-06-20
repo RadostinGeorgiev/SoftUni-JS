@@ -11,7 +11,7 @@ function solve(inputObject) {
     if (!inputObject.hasOwnProperty('uri') ||
         !uriRegex.test(inputObject.uri)) {
 
-        throw new Error('Invalid request header: URI');
+        throw new Error('Invalid request header: Invalid URI');
     }
 
     const validVersions = ['HTTP/0.9', 'HTTP/1.0', 'HTTP/1.1', 'HTTP/2.0'];

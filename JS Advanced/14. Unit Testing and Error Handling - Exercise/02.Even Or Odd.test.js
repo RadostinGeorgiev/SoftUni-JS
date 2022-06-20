@@ -4,10 +4,12 @@ const { isOddOrEven } = require('./02. Even Or Odd');
 describe('isOddOrEven function checker', () => {
     describe('Happy path', () => {
         it('Expect even', () => {
+            expect(isOddOrEven('Te')).to.equal('even');
             expect(isOddOrEven('Test')).to.equal('even');
         });
 
         it('Expect odd', () => {
+            expect(isOddOrEven('T')).to.equal('odd');
             expect(isOddOrEven('Tests')).to.equal('odd');
         });
     });
