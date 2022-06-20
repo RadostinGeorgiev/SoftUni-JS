@@ -27,7 +27,7 @@ class Stringer {
     toString() {
         return this.innerLength == 0
             ? '...'
-            : this.innerLength > this.innerString.length
+            : this.innerLength >= this.innerString.length
                 ? this.innerString
                 : this.innerString.slice(0, this.innerLength).concat('...');
     }

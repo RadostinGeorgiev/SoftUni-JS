@@ -1,25 +1,25 @@
 class List {
     constructor() {
-        this.elements = []
+        this.numbers = []
         this.size = 0;
     }
 
-    add(value) {
-        this.elements.push(value);
-        this.elements.sort((a, b) => a - b);
+    add(element) {
+        this.numbers.push(element);
+        this.numbers.sort((a, b) => a - b);
         this.size++;
     }
 
     remove(index) {
         if (this.checkIndex(index)) {
-            this.elements.splice(index, 1);
+            this.numbers.splice(index, 1);
             this.size--;
         }
     }
 
     get(index) {
         if (this.checkIndex(index)) {
-            return this.elements[index];
+            return this.numbers[index];
         }
     }
 

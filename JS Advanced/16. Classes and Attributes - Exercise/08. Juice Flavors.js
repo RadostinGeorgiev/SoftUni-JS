@@ -1,31 +1,14 @@
 function juiceFlavors(input) {
-    const juices = new Map();
+    const juice = {};
     const bottles = new Map();
 
-    input.forEach(j => {
-        let [juiceName, juiceQuantity] = j.split(' => ');
+    input.forEach(x => {
+        [juiceName, juiceQuantity] = x.split(' => ');
 
-        if (!juices.has(juiceName)) {
-            juices.set(juiceName, 0);
-        }
+        if (!juice.hasOwnProperty(juiceName)) { juice[juiceName] = 0; }
 
-        let juiceQt = juices.get(juiceName) + Number(juiceQuantity);
-        juices.set(juiceName, juiceQt);
-
-        let bottleQt = Math.floor(juiceQt / 1000);
-
-        if (bottleQt > 0) {
-            juiceQt = juiceQt % 1000;
-
-            if (!bottles.has(juiceName)) {
-                bottles.set(juiceName, 0);
-            }
-
-            bottleQt = bottles.get(juiceName) + bottleQt;
-
-            juices.set(juiceName, juiceQt);
-            bottles.set(juiceName, bottleQt);
-        }
+        juice[juiceName] += Number(juiceQuantity);
+        if (juice[juiceName] >= 1000) { bottles.set(juiceName, Math.floor(juice[juiceName] / 1000)) };
     });
 
     for (const [juiceName, juiceQuantity] of bottles) {
