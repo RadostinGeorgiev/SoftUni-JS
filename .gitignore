@@ -1823,3 +1823,13 @@ JS Advanced/Exam Preparation 2 - Retake Exam - 10 December 2021/node_modules/typ
 JS Advanced/Exam Preparation 2 - Retake Exam - 10 December 2021/node_modules/type-detect/type-detect.js
 JS Advanced/Exam Preparation 2 - Retake Exam - 10 December 2021/.vscode/launch.json
 .gitignore
+JS Applications/server/server.js
+JS Applications/server/data/advanced.json
+JS Applications/server/data/blog.json
+JS Applications/server/data/bus.json
+JS Applications/server/data/collections.json
+JS Applications/server/data/cookbook.json
+JS Applications/server/data/forecaster.json
+JS Applications/server/data/messenger.json
+JS Applications/server/data/phonebook.json
+.gitignore
