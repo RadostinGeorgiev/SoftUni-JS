@@ -11,7 +11,7 @@ async function getInfo() {
         //---- make server request -----------------------------------------
         const response = await fetch(url);
 
-        if (response.status != 200) {
+        if (response.ok == false ) {
             throw new Error('Error');
         }
 

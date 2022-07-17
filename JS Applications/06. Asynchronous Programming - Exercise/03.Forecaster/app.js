@@ -112,7 +112,7 @@ function attachEvents() {
 			'label'
 		);
 
-		const divForecastElement = createElement(
+		const divForecast = createElement(
 			'div',
 			'',
 			elements.upcomingForecast,
@@ -123,35 +123,24 @@ function attachEvents() {
 		forecast.forecast.forEach((el) => {
 			const { condition, low, high } = el;
 
-			const upcomingSpanElement = createElement(
+			const upcomingSpan = createElement(
 				'span',
 				'',
-				divForecastElement,
+				divForecast,
 				'class',
 				'upcoming'
 			);
 
+			createElement('span', '', upcomingSpan, 'class', 'symbol').innerHTML =
+				specialSymbols[condition];
 			createElement(
 				'span',
 				'',
-				upcomingSpanElement,
-				'class',
-				'symbol'
-			).innerHTML = specialSymbols[condition];
-			createElement(
-				'span',
-				'',
-				upcomingSpanElement,
+				upcomingSpan,
 				'class',
 				'forecast-data'
 			).innerHTML = `${low}${specialSymbols['Degrees']}/${high}${specialSymbols['Degrees']}`;
-			createElement(
-				'span',
-				condition,
-				upcomingSpanElement,
-				'class',
-				'forecast-data'
-			);
+			createElement('span', condition, upcomingSpan, 'class', 'forecast-data');
 		});
 	}
 
