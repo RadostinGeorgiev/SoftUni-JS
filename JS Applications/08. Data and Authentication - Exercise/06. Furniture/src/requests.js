@@ -46,64 +46,6 @@ async function request(method, url, data) {
 	}
 }
 
-// //---- PUT record ----------------------------------------------------------
-// async function put(url, data) {
-// 	const options = {
-// 		method: 'PUT',
-// 		headers: {},
-// 		body: JSON.stringify(data),
-// 	};
-
-// 	try {
-// 		const result = await request(url, options);
-
-// 		return result;
-// 	} catch (error) {
-// 		alert(error.message);
-// 	}
-// }
-
-// //---- DELETE record -------------------------------------------------------
-// async function del(url) {
-// 	const options = {
-// 		method: 'DELETE',
-// 		headers: {},
-// 	};
-
-// 	try {
-// 		const result = await request(url, options);
-
-// 		return result;
-// 	} catch (error) {
-// 		alert(error.message);
-// 	}
-// }
-
-// //---- LOGOUT ---------------------------------------------------------
-// async function logout(data) {
-// 	const token = getUserData().accessToken;
-
-// 	const options = {
-// 		method: 'GET',
-// 		headers: {
-// 			'X-Authorization': token,
-// 		},
-// 	};
-
-// 	try {
-// 		const response = await fetch(logoutUrl, options);
-
-// 		if (response.status != 204) {
-// 			const error = await response.json();
-// 			alert(error.message);
-
-// 			throw new Error(error.message);
-// 		}
-// 	} catch (error) {
-// 		alert(error.message);
-// 	}
-// }
-
 const get = request.bind(null, 'GET');
 const post = request.bind(null, 'POST');
 const register = request.bind(null, 'POST', registerUrl);
@@ -111,4 +53,3 @@ const login = request.bind(null, 'POST', loginUrl);
 const logout = request.bind(null, 'GET', logoutUrl);
 
 export { get, post, register, login, logout };
-//export { get, post, put, del, login, register, logout };

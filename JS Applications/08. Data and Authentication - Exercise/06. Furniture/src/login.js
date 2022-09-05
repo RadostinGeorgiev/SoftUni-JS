@@ -46,8 +46,6 @@ async function onRegisterClick(event) {
 async function onLoginClick(event) {
 	event.preventDefault();
 
-	console.log('login');
-
 	if (isEmptyField(loginForm)) {
 		alert('Please, fill all fields');
 		return;
