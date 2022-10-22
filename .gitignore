@@ -1833,3 +1833,5 @@ JS Applications/server/data/forecaster.json
 JS Applications/server/data/messenger.json
 JS Applications/server/data/phonebook.json
 .gitignore
+node_modules
+.vscode/settings.json
