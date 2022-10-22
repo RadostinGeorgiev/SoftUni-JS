@@ -1,20 +1,18 @@
 function attachEvents() {
 	const specialSymbols = {
-		Sunny: '&#x2600;',
+		'Sunny': '&#x2600;',
 		'Partly sunny': '&#x26C5;',
-		Overcast: '&#x2601;',
-		Rain: '&#x2614;',
-		Degrees: '&#176;',
+		'Overcast': '&#x2601;',
+		'Rain': '&#x2614;',
+		'Degrees': '&#176;',
 	};
 
-	const baseURL = 'http://localhost:3030/jsonstore/forecaster/';
+	const baseURL = 'http://localhost:3030/jsonstore/forecaster';
 
 	//---- get elements -----------------------------------------------------
 	const elements = {
 		location: document.getElementById('location'),
 		forecast: document.getElementById('forecast'),
-		currentForecast: document.getElementById('current'),
-		upcomingForecast: document.getElementById('upcoming'),
 	};
 
 	//---- onClick event processing -----------------------------------------------------
@@ -31,13 +29,15 @@ function attachEvents() {
 
 			//---- display info ---------------------------------------------------------
 			elements.forecast.style.display = 'block';
+			elements.forecast.replaceChildren();
 
 			displayCurrentCondition(currentForecast);
 			displayUpcomingForecast(upcomingForecast);
 		} catch (error) {
 			//---- error processing -----------------------------------------------------
 			elements.forecast.style.display = 'block';
-			elements.forecast.textContent = error.message;
+
+			elements.forecast.replaceChildren(createElement('div', 'Error', elements.forecast, 'id', 'error'));
 		}
 	});
 
@@ -50,96 +50,32 @@ function attachEvents() {
 			forecast: { high },
 		} = forecast;
 
-		elements.currentForecast.replaceChildren();
-
-		createElement(
-			'div',
-			'Current conditions',
-			elements.currentForecast,
-			'class',
-			'label'
-		);
-
-		const divForecastElement = createElement(
-			'div',
-			'',
-			elements.currentForecast,
-			'class',
-			'forecasts'
-		);
-
-		createElement(
-			'span',
-			'',
-			divForecastElement,
-			'class',
-			'condition symbol'
-		).innerHTML = specialSymbols[condition];
-
-		const conditionElement = createElement(
-			'span',
-			'',
-			divForecastElement,
-			'class',
-			'condition'
-		);
+		//elements.currentForecast.replaceChildren();
+		
+		const currentForecast =  createElement('div', '', elements.forecast, 'id', 'current');
+		createElement('div', 'Current conditions', currentForecast, 'class', 'label');
+		const divForecastElement = createElement('div', '', currentForecast, 'class', 'forecasts');
+		createElement('span', '', divForecastElement, 'class', 'condition symbol').innerHTML = specialSymbols[condition];
+		const conditionElement = createElement('span', '', divForecastElement, 'class', 'condition');
 		createElement('span', name, conditionElement, 'class', 'forecast-data');
-		createElement(
-			'span',
-			'',
-			conditionElement,
-			'class',
-			'forecast-data'
-		).innerHTML = `${low}${specialSymbols['Degrees']}/${high}${specialSymbols['Degrees']}`;
-		createElement(
-			'span',
-			condition,
-			conditionElement,
-			'class',
-			'forecast-data'
-		);
+		createElement('span', '', conditionElement, 'class', 'forecast-data').innerHTML = `${low}${specialSymbols['Degrees']}/${high}${specialSymbols['Degrees']}`;
+		createElement('span', condition, conditionElement, 'class', 'forecast-data');
 	}
 
 	//---- create DOM elements & display forecasts info ---------------------------------
 	function displayUpcomingForecast(forecast) {
-		elements.upcomingForecast.replaceChildren();
+		//elements.upcomingForecast.replaceChildren();
 
-		createElement(
-			'div',
-			'Three-day forecast',
-			elements.upcomingForecast,
-			'class',
-			'label'
-		);
-
-		const divForecast = createElement(
-			'div',
-			'',
-			elements.upcomingForecast,
-			'class',
-			'forecast-info'
-		);
+		const upcomingForecast =  createElement('div', '', elements.forecast, 'id', 'upcoming');
+		createElement('div', 'Three-day forecast', upcomingForecast, 'class', 'label');
+		const divForecast = createElement('div', '', upcomingForecast, 'class', 'forecast-info');
 
 		forecast.forecast.forEach((el) => {
 			const { condition, low, high } = el;
 
-			const upcomingSpan = createElement(
-				'span',
-				'',
-				divForecast,
-				'class',
-				'upcoming'
-			);
-
-			createElement('span', '', upcomingSpan, 'class', 'symbol').innerHTML =
-				specialSymbols[condition];
-			createElement(
-				'span',
-				'',
-				upcomingSpan,
-				'class',
-				'forecast-data'
-			).innerHTML = `${low}${specialSymbols['Degrees']}/${high}${specialSymbols['Degrees']}`;
+			const upcomingSpan = createElement('span', '', divForecast, 'class', 'upcoming');
+			createElement('span', '', upcomingSpan, 'class', 'symbol').innerHTML = specialSymbols[condition];
+			createElement('span', '', upcomingSpan, 'class', 'forecast-data').innerHTML = `${low}${specialSymbols['Degrees']}/${high}${specialSymbols['Degrees']}`;
 			createElement('span', condition, upcomingSpan, 'class', 'forecast-data');
 		});
 	}
@@ -147,9 +83,7 @@ function attachEvents() {
 	//---- function for make request, filter response & return location code ------------
 	async function getLocationCode(url) {
 		const location = await getRequest(url);
-		const currentLocation = location.find(
-			(x) => x.name === elements.location.value
-		);
+		const currentLocation = location.find(x => x.name === elements.location.value);
 
 		if (!currentLocation) {
 			throw new Error('Error');
@@ -197,11 +131,11 @@ function createElement(type, value, parent, attr, attrValue, disabled) {
 	if (value) {
 		element.textContent = value;
 	}
-	if (attr) {
-		element.setAttribute(attr, attrValue);
-	}
 	if (parent) {
 		parent.appendChild(element);
+	}
+	if (attr) {
+		element.setAttribute(attr, attrValue);
 	}
 	if (disabled) {
 		element.disabled = disabled;

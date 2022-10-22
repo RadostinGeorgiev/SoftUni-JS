@@ -32,10 +32,11 @@ function createProfileCard(data, id) {
             <label>Email:</label>
             <input type="email" name="user${id}Email" value="${email}" disabled readonly />
             <label>Age:</label>
-            <input type="text" name="user${id}Age" value="${age}" disabled readonly />
+            <input type="email" name="user${id}Age" value="${age}" disabled readonly />
         </div>`;
 
 	main.appendChild(wrap);
+	
 	//---- Hide detailed info ------------------------------------------------
 	wrap.querySelector('div').classList.add('hiddenInfo');
 
@@ -47,22 +48,19 @@ function createProfileCard(data, id) {
 }
 
 function onToggleInfo({ target }) {
-    //---- Get hidden elements -----------------------------------------------
-    const divProfileElement = target.parentElement;
+	//---- Get hidden elements -----------------------------------------------
+	const divProfileElement = target.parentElement;
 	const hiddenDiv = divProfileElement.querySelector('div');
 	const radioButton = divProfileElement.querySelector('[type=radio]:checked');
-    
+
 	if (radioButton.value == 'unlock') {
-        const button = target;
-        
-        //---- Toggle info ---------------------------------------------------
-		if (button.textContent == 'Show more') {
-			button.textContent = 'Hide it';
-			hiddenDiv.classList.remove('hiddenInfo');
-		} else {
-			button.textContent = 'Show more';
-			hiddenDiv.classList.add('hiddenInfo');
-		}
+		const button = target;
+
+		//---- Toggle info ---------------------------------------------------
+		hiddenDiv.classList.toggle('hiddenInfo');
+		button.textContent = button.textContent === 'Show more'
+			? 'Less'
+			: 'Show more';
 	}
 }
 

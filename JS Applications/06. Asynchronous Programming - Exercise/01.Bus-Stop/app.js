@@ -11,7 +11,7 @@ async function getInfo() {
         //---- make server request -----------------------------------------
         const response = await fetch(url);
 
-        if (response.ok == false ) {
+        if (response.status != 200 ) {
             throw new Error('Error');
         }
 
@@ -21,7 +21,7 @@ async function getInfo() {
 
         Object.entries(data.buses)
             .forEach(([busId, time]) => {
-                liElement = document.createElement('li');
+                const liElement = document.createElement('li');
                 liElement.textContent = `Bus ${busId} arrives in ${time} minutes`;
 
                 ulElement.appendChild(liElement);
@@ -29,6 +29,6 @@ async function getInfo() {
 
     } catch (error) {
         //---- error processing --------------------------------------------
-        stopName.textContent = error.message;
+        stopName.textContent = 'Error';
     }
 }
