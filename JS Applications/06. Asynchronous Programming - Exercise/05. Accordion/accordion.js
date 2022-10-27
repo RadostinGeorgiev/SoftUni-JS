@@ -3,7 +3,7 @@ async function solution() {
 	const url = 'http://localhost:3030/jsonstore/advanced/articles/list';
 	const data = await getRequest(url);
 
-	Object.values(data).forEach((el) => displayHeadsInfo(el));
+	data.forEach(el => displayHeadsInfo(el));
 }
 
 //---- create elements & display headers info --------------------------------
