@@ -1835,3 +1835,12 @@ JS Applications/server/data/phonebook.json
 .gitignore
 node_modules
 .vscode/settings.json
+server/server.js
+server/data/advanced.json
+server/data/blog.json
+server/data/bus.json
+server/data/collections.json
+server/data/cookbook.json
+server/data/forecaster.json
+server/data/messenger.json
+server/data/phonebook.json
