@@ -1,9 +1,11 @@
 import { getUserData, clearUserData } from './utils.js';
 
 const host = 'http://localhost:3030';
-const loginUrl = '/users/login';
-const registerUrl = '/users/register';
-const logoutUrl = '/users/logout';
+const endpoints = {
+	login: '/users/login',
+	register: '/users/register',
+	logout: '/users/logout'
+}
 
 /**
  * --- function CRUD requests ---------------------------------------------------
@@ -50,8 +52,8 @@ const get = request.bind(null, 'GET');
 const post = request.bind(null, 'POST');
 const put = request.bind(null, 'PUT');
 const del = request.bind(null, 'DELETE');
-const register = request.bind(null, 'POST', registerUrl);
-const login = request.bind(null, 'POST', loginUrl);
-const logout = request.bind(null, 'GET', logoutUrl);
+const register = request.bind(null, 'POST', endpoints.register);
+const login = request.bind(null, 'POST', endpoints.login);
+const logout = request.bind(null, 'GET', endpoints.logout);
 
 export { get, post, put, del, login, register, logout }

@@ -4,6 +4,7 @@ import { getUserData } from "./utils.js";
 
 const recipesUrl = '/data/recipes';
 
+//---- attach event listeners --------------------------------------------------
 document.addEventListener('DOMContentLoaded', onLoad);
 document.querySelector('nav').addEventListener('click', onNavClick);
 

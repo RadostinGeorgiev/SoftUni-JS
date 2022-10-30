@@ -14,7 +14,7 @@ const endpoints = {
  * @param {object} options
  * @returns {promise}
  */
- async function request(method, url, data) {
+async function request(method, url, data) {
 	const options = {
 		method: method,
 		headers: {}
@@ -56,4 +56,4 @@ const register = request.bind(null, 'POST', endpoints.register);
 const login = request.bind(null, 'POST', endpoints.login);
 const logout = request.bind(null, 'GET', endpoints.logout);
 
-export { get as getRecipes, post, put, del, login, register, logout }
+export { get, post, put, del, login, register, logout }

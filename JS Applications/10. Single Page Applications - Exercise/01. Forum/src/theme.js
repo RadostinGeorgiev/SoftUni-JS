@@ -1,8 +1,8 @@
-import { commentsUrl, postsUrl } from "./app.js";
+import { endpoints } from "./app.js";
 import { get, post } from "./requests.js";
 import { createCommentsHeader, createCommentPost, createTopicTitle, createCommentsBody } from "./templates.js";
-import { clearFields } from "./utils.js";
 
+//---- get elements ------------------------------------------------------------
 const container = document.querySelector('.container');
 const section = document.querySelector('.theme-content');
 const theme = document.querySelector('.theme-name-wrapper');
@@ -10,6 +10,7 @@ const comments = document.querySelector('.comment');
 const form = document.querySelector('.answer-comment form');
 const postButton = document.querySelector('.answer-comment button');
 
+//---- attach event listeners --------------------------------------------------
 postButton.addEventListener('click', onPostButtonClick);
 
 section.remove();
@@ -19,7 +20,7 @@ async function showTheme(id) {
     themeId = id;
     container.replaceChildren(section);
 
-    const data = await get(postsUrl + `/${id}`);
+    const data = await get(endpoints.posts + `/${id}`);
 
     let result = createTopicTitle(data);
     theme.replaceChildren(result);
@@ -37,7 +38,7 @@ async function loadComments() {
     const userComments = document.querySelector('.topic-name-wrapper');
 
     try {
-        const data = await get(commentsUrl);
+        const data = await get(endpoints.comments);
 
         const result = Object.values(data)
             .filter(x => x.postId == themeId)
@@ -63,9 +64,9 @@ async function onPostButtonClick(event) {
     };
 
     try {
-        await post(commentsUrl, data);
+        await post(comments, data);
         
-        clearFields(form);
+        form.reset();
         loadComments();
     } catch (err) {
         console.error(err.message);

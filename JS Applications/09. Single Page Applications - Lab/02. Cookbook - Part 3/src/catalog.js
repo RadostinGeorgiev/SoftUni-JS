@@ -1,6 +1,6 @@
 import { recipesUrl } from "./app.js";
 import { showEdit } from "./edit.js";
-import { del, getRecipes } from "./requests.js";
+import { del, get as getRecipes } from "./requests.js";
 import { e } from "./utils.js";
 
 //---- get elements ------------------------------------------------------------
@@ -31,7 +31,7 @@ function createRecipePreview(recipe) {
     return result;
 
     async function toggleCard() {
-        const fullRecipe = await getRecipes(recipesUrl+`/${recipe._id}`);
+        const fullRecipe = await getRecipes(recipesUrl + `/${recipe._id}`);
         result.replaceWith(createRecipeCard(fullRecipe));
     }
 }
@@ -67,7 +67,7 @@ function createRecipeCard(recipe) {
         const confirmed = confirm(`Are you sure you want to delete ${recipe.name}?`);
 
         if (confirmed) {
-            del(recipesUrl+`/${recipe._id}`);
+            del(recipesUrl + `/${recipe._id}`);
             showCatalog();
         }
     }

@@ -1,5 +1,5 @@
 import { recipesUrl, onLoad } from "./app.js";
-import { getRecipes, put } from "./requests.js";
+import { get as getRecipes, put } from "./requests.js";
 
 //---- get elements ------------------------------------------------------------
 const main = document.querySelector('main');

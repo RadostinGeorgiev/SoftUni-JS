@@ -1,8 +1,11 @@
 import { showHome } from "./home.js";
 
-const postsUrl = '/jsonstore/collections/myboard/posts';
-const commentsUrl = '/jsonstore/collections/myboard/comments';
+const endpoints = {
+    posts: '/jsonstore/collections/myboard/posts',
+    comments: '/jsonstore/collections/myboard/comments'
+}
 
+//---- attach event listeners --------------------------------------------------
 document.addEventListener('DOMContentLoaded', onLoad);
 document.querySelector('a').addEventListener('click', onHomeClick);
 
@@ -14,4 +17,4 @@ function onHomeClick() {
     showHome();
 }
 
-export { postsUrl, commentsUrl }
+export { endpoints }

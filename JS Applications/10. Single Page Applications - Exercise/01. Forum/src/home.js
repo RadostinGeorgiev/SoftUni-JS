@@ -1,9 +1,9 @@
-import { postsUrl } from "./app.js";
+import { endpoints } from "./app.js";
 import { get, post } from "./requests.js";
 import { createTopicHome } from "./templates.js";
 import { showTheme } from "./theme.js";
-import { clearFields } from "./utils.js";
 
+//---- get elements ------------------------------------------------------------
 const container = document.querySelector('.container');
 const main = document.querySelector('main');
 
@@ -12,6 +12,7 @@ const form = document.querySelector('.new-topic-border form');
 const cancelButton = document.querySelector('.cancel');
 const postButton = document.querySelector('.public');
 
+//---- attach event listeners --------------------------------------------------
 cancelButton.addEventListener('click', onCancelClick);
 postButton.addEventListener('click', onPostClick);
 
@@ -23,7 +24,7 @@ function showHome() {
 
 async function loadTopics() {
     try {
-        const data = await get(postsUrl);
+        const data = await get(endpoints.posts);
 
         const result = Object.values(data).map(x => {
             const topic = createTopicHome(x);
@@ -43,8 +44,7 @@ function onTopicClick(event) {
 
 function onCancelClick(event) {
     event.preventDefault();
-
-    clearFields(form);
+    form.reset();
 }
 
 async function onPostClick(event) {
@@ -61,9 +61,10 @@ async function onPostClick(event) {
     };
 
     try {
-        await post(postsUrl, data);
+        await post(endpoints.posts, data);
 
-        onLoad();
+        form.reset();
+        showHome();
     } catch (err) {
         console.error(err.message);
     }
