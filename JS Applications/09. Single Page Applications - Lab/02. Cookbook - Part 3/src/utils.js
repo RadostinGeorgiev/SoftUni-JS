@@ -1,10 +1,6 @@
 const getInputValues = (form) => [...form.querySelectorAll('input')];
 const getInputAreas = (form) => [...form.querySelectorAll('textarea')];
 const isEmptyField = (form) => getInputValues(form).some(x => x.value == '');
-const clearFields = (form) => {
-    getInputValues(form).filter(x => x.type == 'text' || x.type == 'password').forEach(x => x.value = '');
-    getInputAreas(form).forEach(x => x.value = '');
-}
 
 const getUserData = () => JSON.parse(sessionStorage.getItem('userData'));
 const clearUserData = () => sessionStorage.removeItem('userData');
@@ -34,4 +30,4 @@ function e(type, attributes, ...content) {
     return result;
 }
 
-export { isEmptyField, clearFields, getUserData, clearUserData, e }
+export { isEmptyField, getUserData, clearUserData, e }

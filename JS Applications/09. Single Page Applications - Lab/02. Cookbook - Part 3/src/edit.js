@@ -1,11 +1,12 @@
 import { recipesUrl, onLoad } from "./app.js";
 import { getRecipes, put } from "./requests.js";
-import { clearFields } from "./utils.js";
 
+//---- get elements ------------------------------------------------------------
 const main = document.querySelector('main');
 const section = document.getElementById('edit');
-
 const form = document.querySelector('#edit form');
+
+//---- attach event listeners --------------------------------------------------
 form.addEventListener('submit', onSubmit);
 
 section.remove();

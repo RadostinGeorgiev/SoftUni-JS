@@ -13,19 +13,20 @@ const monthByName = {
     Dec: '12',
 };
 
+//---- get elements ------------------------------------------------------------
 const body = document.querySelector('body');
 const years = document.getElementById('years');
 
+//---- attach event listeners --------------------------------------------------
 document.addEventListener('DOMContentLoaded', onLoad);
 body.addEventListener('click', onClick);
 
-//---- creaate associative array from sections -----------------------------   
+//---- create associative array from sections ------------------------------   
 const sections = [...document.querySelectorAll('section')]
     .reduce((acc, current) => {
         acc[current.id] = current;
         return acc;
     }, {});
-
 
 //---- initializing the page -----------------------------------------------   
 function onLoad() {
@@ -33,7 +34,7 @@ function onLoad() {
     loadView(years.id);
 }
 
-//---- processing click event ----------------------------------------------  
+//---- processing click event - change current ID depends of selected element  
 function onClick({ target }) {
     const caption = document.querySelector('caption');
     const section = document.querySelector('section');

@@ -3,8 +3,10 @@ import { showEdit } from "./edit.js";
 import { del, getRecipes } from "./requests.js";
 import { e } from "./utils.js";
 
+//---- get elements ------------------------------------------------------------
 const main = document.querySelector('main');
 const section = document.getElementById('catalog');
+
 section.remove();
 
 async function showCatalog() {

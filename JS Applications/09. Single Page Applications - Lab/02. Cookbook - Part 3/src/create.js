@@ -1,17 +1,18 @@
 import { recipesUrl, onLoad, } from "./app.js";
 import { post } from "./requests.js";
-import { clearFields } from "./utils.js";
 
+//---- get elements ------------------------------------------------------------
 const main = document.querySelector('main');
 const section = document.getElementById('create');
-
 const form = document.querySelector('#create form');
+
+//---- attach event listeners --------------------------------------------------
 form.addEventListener('submit', onSubmit);
 
 section.remove();
 
 function showCreate() {
-    clearFields(form);
+    form.reset();
     main.replaceChildren(section);
 }
 

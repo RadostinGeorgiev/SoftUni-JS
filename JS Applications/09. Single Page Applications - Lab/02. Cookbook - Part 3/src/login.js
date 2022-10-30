@@ -1,17 +1,19 @@
 import { onLoad } from "./app.js";
 import { login } from "./requests.js";
-import { clearFields, isEmptyField } from "./utils.js";
+import { isEmptyField } from "./utils.js";
 
+//---- get elements ------------------------------------------------------------
 const main = document.querySelector('main');
 const section = document.getElementById('login');
-
 const form = document.querySelector('#login form');
+
+//---- attach event listeners --------------------------------------------------
 form.addEventListener('submit', onSubmit);
 
 section.remove();
 
 function showLogin() {
-    clearFields(form);
+    form.reset();
     main.replaceChildren(section);
 }
 
