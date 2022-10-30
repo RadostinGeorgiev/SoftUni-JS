@@ -6,22 +6,19 @@ const urls = {
     furnitureUrl: '/data/furniture',
     ordersUrl: '/data/orders',
 }
-
-window.addEventListener('DOMContentLoaded', onLoad);
-
+//---- get elements ------------------------------------------------------------
 const logoutBtn = document.getElementById('logoutBtn');
-logoutBtn.addEventListener('click', onLogoutClick);
-
 const createForm = document.querySelector('form');
-createForm.addEventListener('submit', onCreateClick);
-
 const table = document.querySelector('tbody');
-
 const buttons = [...document.querySelectorAll('button')];
+const [boughtFurniture, totalPrice] = document.querySelectorAll('.orders span');
+
+//---- attach event listeners --------------------------------------------------
+window.addEventListener('DOMContentLoaded', onLoad);
+logoutBtn.addEventListener('click', onLogoutClick);
+createForm.addEventListener('submit', onCreateClick);
 buttons[1].addEventListener('click', onBuyClick);
 buttons[2].addEventListener('click', onAllOrdersClick);
-
-const [boughtFurniture, totalPrice] = document.querySelectorAll('.orders span');
 
 async function onLoad() {
     const data = await get(urls.furnitureUrl);
