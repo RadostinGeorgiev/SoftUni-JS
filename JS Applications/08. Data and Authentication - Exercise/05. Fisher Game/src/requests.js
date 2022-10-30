@@ -1,8 +1,11 @@
 import { getUserData } from './utils.js';
 
-const loginUrl = 'http://localhost:3030/users/login';
-const registerUrl = 'http://localhost:3030/users/register';
-const logoutUrl = 'http://localhost:3030/users/logout';
+const host = 'http://localhost:3030';
+const endpoints = {
+	register: '/users/register',
+	login: '/users/login',
+	logout: '/users/logout',
+};
 
 /**
  * --- function CRUD requests ---------------------------------------------------
@@ -11,149 +14,46 @@ const logoutUrl = 'http://localhost:3030/users/logout';
  * @param {object} options
  * @returns {promise}
  */
-async function request(url, options) {
-	if (options && options.body) {
+async function request(method, url, data) {
+	const options = {
+		method: method,
+		headers: {}
+	};
+
+	if (data != undefined) {
 		options.headers['Content-Type'] = 'application/json';
+		options.body = JSON.stringify(data);
 	}
 
-    const userData = getUserData();
-    if (userData) {
-        options.headers['X-Authorization'] = userData.accessToken;
-    }
+	const userData = getUserData();
+	if (userData) {
+		options.headers['X-Authorization'] = userData.accessToken;
+	}
 
-	const response = await fetch(url, options);
+	const response = await fetch(host + url, options);
 
-	if (response.ok == false) {
+	if (response.ok !== true) {
+		if (response.status == 403) {
+			clearUserData();
+		}
+
 		const error = await response.json();
 		throw new Error(error.message);
 	}
 
-	const data = await response.json();
-
-	return data;
-}
-
-//---- GET records ---------------------------------------------------------
-async function get(url) {
-    const options = {
-		method: 'GET',
-		headers: {},
-	};
-
-	try {
-		const data = await request(url, options);
-
-		return data;
-	} catch (error) {
-		alert(error.message);
+	if (response.status == 204) {
+		return response;
+	} else {
+		return response.json();
 	}
 }
 
-//---- POST record ---------------------------------------------------------
-async function post(url, data) {
-	const options = {
-		method: 'POST',
-        headers: {},
-		body: JSON.stringify(data),
-	};
-
-	try {
-		const result = await request(url, options);
-
-		return result;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- PUT record ----------------------------------------------------------
-async function put(url, data) {
-	const options = {
-		method: 'PUT',
-		headers: {},
-		body: JSON.stringify(data),
-	};
-
-	try {
-		const result = await request(url, options);
-
-		return result;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- DELETE record -------------------------------------------------------
-async function del(url) {
-	const options = {
-		method: 'DELETE',
-        headers: {},
-	};
-
-	try {
-		const result = await request(url, options);
-
-		return result;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- LOGIN ---------------------------------------------------------
-async function login(data) {
-	try {
-		const options = {
-			method: 'POST',
-            headers: {},
-			body: JSON.stringify(data),
-		};
-
-		return await request(loginUrl, options);
-	} catch (error) {
-		throw new Error(error.message);
-	}
-}
-
-//---- REGISTER ---------------------------------------------------------
-async function register(data) {
-	const options = {
-		method: 'POST',
-        headers: {},
-		body: JSON.stringify(data),
-	};
-
-	try {
-		const result = await request(registerUrl, options);
-
-		return result;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- LOGOUT ---------------------------------------------------------
-async function logout(data) {
-	const token = getUserData().accessToken;
-
-	const options = {
-		method: 'GET',
-		headers: {
-			'X-Authorization': token,
-		},
-	};
-
-	try {
-		const response = await fetch(logoutUrl, options);
-
-		if (response.status != 204) {
-			const error = await response.json();
-			alert(error.message);
-
-			throw new Error(error.message);
-		}
-	} catch (error) {
-		alert(error.message);
-	}
-}
+const get = request.bind(null, 'GET');
+const post = request.bind(null, 'POST');
+const put = request.bind(null, 'PUT');
+const del = request.bind(null, 'DELETE');
+const register = request.bind(null, 'POST', endpoints.register);
+const login = request.bind(null, 'POST', endpoints.login);
+const logout = request.bind(null, 'GET', endpoints.logout);
 
 export { get, post, put, del, login, register, logout };

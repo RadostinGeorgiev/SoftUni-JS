@@ -7,10 +7,14 @@ const inputs = {
 	title: document.querySelector('[name="title"]'),
 	author: document.querySelector('[name="author"]'),
 };
+const buttons = {
+	loadAll: document.getElementById('loadBooks'),
+	submit: form.querySelector('button')
+};
 
 //---- attach button events ----------------------------------------------------
-document.getElementById('loadBooks').addEventListener('click', onLoadBooksClick);
-document.querySelector('form button').addEventListener('click', onSubmitClick);
+buttons.loadAll.addEventListener('click', onLoadBooksClick);
+buttons.submit.addEventListener('click', onSubmitClick);
 
 //---- init page ---------------------------------------------------------------
 tableBody.replaceChildren();
@@ -18,10 +22,9 @@ tableBody.replaceChildren();
 //---- GET records  & fill all data in the table -------------------------------
 async function onLoadBooksClick() {
 	try {
-		const data = await getRequest();
+		const data = await get(url);
 
-		const result = Object.keys(data)
-			.map(key => createRow(key, data[key]));
+		const result = Object.keys(data).map(key => createRow(key, data[key]));
 		tableBody.replaceChildren(...result);
 
 		form.reset();
@@ -30,31 +33,30 @@ async function onLoadBooksClick() {
 	}
 }
 
-function onSubmitClick(event) {
+async function onSubmitClick(event) {
 	event.preventDefault();
 
 	const book = {
-		title: inputs.title.value,
 		author: inputs.author.value,
+		title: inputs.title.value
 	};
 
+	let id;
 	if (Object.values(book).every((x) => x.value != '')) {
 		if (event.target.textContent == 'Submit') {
-			postRequest(book);
+			//---- Create Book record ------------------------------------------
+			const result = await post(url, book);
+			id = result._id;
 		} else {
-			const id = sessionStorage.getItem('selectedId');
-			putRequest(book, id);
+			//---- Edit Book record --------------------------------------------
+			const id = form.dataset.id;
+			const result = await put(url + `/${id}`, book);
 
 			event.target.textContent = 'Submit';
-			document.querySelector('form h3').textContent = 'Form';
-			sessionStorage.removeItem('selectedId');
+			form.querySelector('h3').textContent = 'Form';
 		}
 
-		tableBody.appendChild(createRow(book));
 		onLoadBooksClick();
-
-		inputs.title.value = '';
-		inputs.author.value = '';
 	} else {
 		alert('Please, fill all values!');
 	}
@@ -78,23 +80,24 @@ function createRow(id, data) {
 
 	// ---- load record for the edited row & fill form fields ----------------------
 	function onEditClick({ target }) {
-		// ---- change labels of the the form --------------------------------------
-		document.querySelector('form h3').textContent = 'Edit Form';
-		document.querySelector('form button').textContent = 'Save';
-
 		const row = target.parentElement.parentElement;
 		const cells = row.getElementsByTagName('td');
+
+		// ---- change labels of the the form --------------------------------------
+		form.querySelector('h3').textContent = 'Edit FORM';
+		form.querySelector('button').textContent = 'Save';
+		form.dataset.id = row.dataset.id;
 
 		inputs.title.value = cells[0].textContent;
 		inputs.author.value = cells[1].textContent;
 	}
 
 	// ---- delete record ----------------------------------------------------------
-	function onDeleteClick({ target }) {
+	async function onDeleteClick({ target }) {
 		const row = target.parentElement.parentElement;
-		
+
 		try {
-			deleteRequest(row.dataset.id);
+			const result = await del(url + `/${row.dataset.id}`);
 		} catch (error) {
 			alert(error.message);
 		}
@@ -105,75 +108,6 @@ function createRow(id, data) {
 	return row;
 }
 
-//---- GET records ---------------------------------------------------------
-async function getRequest() {
-	try {
-		const data = await makeRequest(url);
-
-		return data;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- GET record by Id ----------------------------------------------------
-async function getRequestById(id) {
-	try {
-		const data = await makeRequest(url + `/${id}`);
-
-		return data;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- POST record ---------------------------------------------------------
-async function postRequest(data) {
-	const options = {
-		method: 'POST',
-		body: JSON.stringify(data),
-	};
-
-	try {
-		const result = await makeRequest(url, options);
-
-		return result;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- PUT record ----------------------------------------------------------
-async function putRequest(data, id) {
-	const options = {
-		method: 'PUT',
-		body: JSON.stringify(data),
-	};
-
-	try {
-		const result = await makeRequest(url + `/${id}`, options);
-
-		return result;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
-//---- DELETE record -------------------------------------------------------
-async function deleteRequest(id) {
-	const options = {
-		method: 'DELETE',
-	};
-
-	try {
-		const result = await makeRequest(url + `/${id}`, options);
-
-		return result;
-	} catch (error) {
-		alert(error.message);
-	}
-}
-
 /**
  * --- function CRUD requests ---------------------------------------------------
  * --- return data or error as promise
@@ -181,26 +115,33 @@ async function deleteRequest(id) {
  * @param {object} options
  * @returns {promise}
  */
-async function makeRequest(url, options) {
-	if (options && options.body) {
-		Object.assign(options, {
-			headers: { 'Content-Type': 'application/json' },
-		});
+async function request(method, url, data) {
+	const options = {
+		method: method,
+		headers: {}
+	};
+
+	if (data != undefined) {
+		options.headers['Content-Type'] = 'application/json';
+		options.body = JSON.stringify(data);
 	}
 
 	const response = await fetch(url, options);
 
-	if (response.status != 200) {
+	if (response.ok != true) {
 		const error = await response.json();
 		alert(error.message);
 
 		throw new Error(error.message);
 	}
 
-	const data = await response.json();
-
-	return data;
+	return response.json();
 }
+
+const get = request.bind(null, 'GET');
+const post = request.bind(null, 'POST');
+const put = request.bind(null, 'PUT');
+const del = request.bind(null, 'DELETE');
 
 /**
  * --- createElements -------------------------------------------

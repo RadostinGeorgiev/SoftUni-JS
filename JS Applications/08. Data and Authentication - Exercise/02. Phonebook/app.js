@@ -1,99 +1,78 @@
 function attachEvents() {
-	const url = 'http://localhost:3030/jsonstore/phonebook';
+    const url = 'http://localhost:3030/jsonstore/phonebook';
 
     //---- get elements ------------------------------------------------------------
-	const inputs = {
-		person: document.getElementById('person'),
-		phone: document.getElementById('phone'),
-	};
+    const inputs = {
+        person: document.getElementById('person'),
+        phone: document.getElementById('phone'),
+    };
 
-	const buttons = {
-		load: document.getElementById('btnLoad'),
-		create: document.getElementById('btnCreate'),
-	};
+    const buttons = {
+        load: document.getElementById('btnLoad'),
+        create: document.getElementById('btnCreate'),
+    };
 
     //---- attach button events ----------------------------------------------------
-	buttons.load.addEventListener('click', onLoadClick);
-	buttons.create.addEventListener('click', onCreateClick);
+    buttons.load.addEventListener('click', onLoadClick);
+    buttons.create.addEventListener('click', onCreateClick);
 
     //---- fill ul with loaded phones ----------------------------------------------
-	async function onLoadClick() {
-		const ul = document.getElementById('phonebook');
-		
-		const data = await getRequest();
+    async function onLoadClick() {
+        const ul = document.getElementById('phonebook');
 
-		if (data.length > 0) {
-			ul.replaceChildren(...data.map(p => createLi(p.person, p.phone, p._id)));
-		}
-	}
+        //---- GET records ---------------------------------------------------------
+        const response = await fetch(url);
+        const data = await response.json();
 
-    //---- create li & button for phone --------------------------------------------
-	function createLi(person, phone, id) {
-		const li = document.createElement('li');
-		li.textContent = `${person}: ${phone}`;
-
-		const buttonDelete = document.createElement('button');
-		buttonDelete.textContent = 'Delete';
-		li.appendChild(buttonDelete);
-
-		buttonDelete.addEventListener('click', () => {
-			deleteRequest(id);
-			li.remove();
-		});
-
-		return li;
-	}
+        ul.replaceChildren(...Object.values(data).map(p => createLi(p.person, p.phone, p._id)));
+    }
 
     //---- read input fields & create phone record ---------------------------------
-	async function onCreateClick() {
-		if ([...Object.values(inputs)].every((x) => x.value.trim() != '')) {
-			const data = {
-				person: inputs.person.value,
-				phone: inputs.phone.value,
-			};
+    async function onCreateClick() {
+        if ([...Object.values(inputs)].every((x) => x.value.trim() != '')) {
+            const data = {
+                person: inputs.person.value,
+                phone: inputs.phone.value,
+            };
 
-			const result = await postRequest(data);
-			onLoadClick();
+            //---- POST record -----------------------------------------------------
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            };
 
-			inputs.person.value = '';
-			inputs.phone.value = '';
-		} else {
-			alert('Please, fill all values!');
-		}
-	}
+            const response = await fetch(url, options);
 
-    //---- GET records -------------------------------------------------------------
-	async function getRequest() {
-		const response = await fetch(url);
-		const data = await response.json();
+            inputs.person.value = '';
+            inputs.phone.value = '';
+            onLoadClick();
+        } else {
+            alert('Please, fill all values!');
+        }
+    }
 
-		return Object.values(data);
-	}
+    //---- create li & button for phone --------------------------------------------
+    function createLi(person, phone, id) {
+        const li = document.createElement('li');
+        li.textContent = `${person}: ${phone}`;
 
-    //---- POST records ------------------------------------------------------------
-	async function postRequest(data) {
-		const options = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		};
+        const buttonDelete = document.createElement('button');
+        buttonDelete.textContent = 'Delete';
+        li.appendChild(buttonDelete);
 
-		const response = await fetch(url, options);
-		const result = await response.json();
+        buttonDelete.addEventListener('click', async () => {
+            //---- DELETE records --------------------------------------------------
+            const options = {
+                method: 'DELETE'
+            };
 
-		return result;
-	}
+            li.remove();
+            const response = await fetch(url + `/${id}`, options);
+        });
 
-    //---- DELETE records ----------------------------------------------------------
-	async function deleteRequest(id) {
-		const options = {
-			method: 'DELETE',
-		};
-
-		await fetch(url + `/${id}`, options);
-	}
+        return li;
+    }
 }
 
 attachEvents();

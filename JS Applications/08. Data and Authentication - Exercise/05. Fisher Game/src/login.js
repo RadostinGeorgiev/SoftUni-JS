@@ -1,31 +1,40 @@
 import { login } from './requests.js';
 import { isEmptyField } from './utils.js';
+window.addEventListener('DOMContentLoaded', init);
 
+//---- get elements ------------------------------------------------------------
 const form = document.querySelector('form');
-form.addEventListener('submit', onSubmit);
-window.onload = init();
+const navButtons = {
+	user: document.getElementById('user'),
+	guest: document.getElementById('guest'),
+};
+const email = document.querySelector('nav .email span');
 
+//---- attach event listeners --------------------------------------------------
+form.addEventListener('submit', onSubmit);
+
+//---- initializing the elements -----------------------------------------------
 function init() {
-	document.getElementById('user').style.display = 'none';
-	document.querySelector('nav .email span').textContent = 'guest';
+	navButtons.user.style.display = 'none';
+	email.textContent = 'guest';
 }
 
 async function onSubmit(event) {
 	event.preventDefault();
 
 	if (isEmptyField(form)) {
-		alert('Please, fill all fields');
+		alert('Please, fill all fields'); 
 		return;
 	}
 
 	const formData = new FormData(event.target);
-	const data = {
-		email: formData.get('email'),
-		password: formData.get('password'),
+	const loginData = {
+		"email": formData.get('email'),
+		"password": formData.get('password'),
 	};
 
 	try {
-		const result = await login(data);
+		const result = await login(loginData);
 
 		const userData = {
 			email: result.email,
@@ -34,7 +43,7 @@ async function onSubmit(event) {
 		};
 
 		sessionStorage.setItem('userData', JSON.stringify(userData));
-		window.location.href = './index.html';
+		window.location.replace('./index.html');
 
 	} catch (error) {
 		alert(error.message);

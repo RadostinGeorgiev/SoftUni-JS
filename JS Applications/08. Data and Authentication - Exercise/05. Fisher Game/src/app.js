@@ -1,6 +1,7 @@
-import { get, post, put, del, logout, login } from './requests.js';
+import { get, post, put, del, logout } from './requests.js';
 import { catchTemplate } from './templates.js';
-import { getUserData } from './utils.js';
+import { isEmptyField, getUserData } from './utils.js';
+window.addEventListener('DOMContentLoaded', init);	//window.onload = init();
 
 //---- get elements ------------------------------------------------------------
 const buttons = {
@@ -20,16 +21,15 @@ messageP.style.textAlign = 'center';
 homeView.insertAdjacentElement('afterbegin', messageP);
 
 //---- attach event listeners --------------------------------------------------
-window.addEventListener('DOMContentLoaded', onLoad);
 buttons.logout.addEventListener('click', onLogoutClick);
 buttons.load.addEventListener('click', onLoadClick);
 buttons.add.addEventListener('click', onAddClick);
 
-const catchesUrl = 'http://localhost:3030/data/catches';
+const catchesUrl = '/data/catches';
 let userData = getUserData();
 
 //---- initializing the elements -----------------------------------------------
-function onLoad() {
+function init() {
 	const navButtons = {
 		user: document.getElementById('user'),
 		guest: document.getElementById('guest'),
@@ -53,19 +53,15 @@ function onLoad() {
 	}
 }
 
-async function onLogoutClick() {
-	try {
-		const result = await logout(JSON.parse(sessionStorage.userData));
+function onLogoutClick() {
+	logout();
 
-		sessionStorage.removeItem('userData');
-		window.location = './index.html';
-	} catch (error) {
-		alert(error.message);
-	}
+	sessionStorage.removeItem('userData');
+	window.location.href = './index.html';
 }
 
 async function onLoadClick() {
-    messageP.remove();
+	messageP.remove();
 
 	try {
 		const data = await get(catchesUrl);
@@ -113,6 +109,11 @@ async function onAddClick(event) {
 	const button = event.target;
 	const form = button.parentElement;
 
+    if (isEmptyField(form)) {
+		// alert('Please, fill all fields');
+		return;
+	}
+
 	const data = getFormValues(form);
 
 	try {
@@ -124,13 +125,16 @@ async function onAddClick(event) {
 }
 
 function getFormValues(form) {
-	const angler = form.querySelector('.angler').value;
-	const weight = form.querySelector('.weight').value;
-	const species = form.querySelector('.species').value;
-	const location = form.querySelector('.location').value;
-	const bait = form.querySelector('.bait').value;
-	const captureTime = form.querySelector('.captureTime').value;
+	const formData = new FormData(form);
+
+	const angler = formData.get('angler');
+	const weight = formData.get('weight');
+	const species = formData.get('species');
+	const location = formData.get('location');
+	const bait = formData.get('bait');
+	const captureTime = formData.get('captureTime');
 
 	const data = { angler, weight, species, location, bait, captureTime };
+
 	return data;
 }

@@ -1,9 +1,9 @@
 import { register } from './requests.js';
 import { isEmptyField } from './utils.js';
+window.addEventListener('DOMContentLoaded', init);
 
 const form = document.querySelector('form');
 form.addEventListener('submit', onSubmit);
-window.onload = init();
 
 function init() {
 	document.getElementById('user').style.display = 'none';
