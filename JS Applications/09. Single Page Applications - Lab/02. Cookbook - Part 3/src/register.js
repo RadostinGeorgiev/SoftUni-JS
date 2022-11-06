@@ -29,7 +29,8 @@ async function onSubmit(event) {
     const fields = Object.fromEntries(formData.entries());
 
     if (fields.password != fields.rePass) {
-        return console.error('Passwords don\'t match');
+        alert('Passwords don\'t match');
+        return;
     }
 
     const data = {
@@ -48,7 +49,7 @@ async function onSubmit(event) {
 
         onLoad();
     } catch (err) {
-        console.error(err.message);
+        alert(err.message);
     }
 }
 

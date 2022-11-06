@@ -37,7 +37,7 @@ async function onLogout() {
     sessionStorage.removeItem('userData');
 
     if (result.status != 204) {
-        console.error(await response.json());
+        alert(await response.json());
     } else {
         onLoad();
     }

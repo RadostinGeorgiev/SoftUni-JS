@@ -39,7 +39,7 @@ async function onSubmit(event) {
 
         onLoad();
     } catch (err) {
-        console.error(err.message);
+        alert(err.message);
     }
 }
 
