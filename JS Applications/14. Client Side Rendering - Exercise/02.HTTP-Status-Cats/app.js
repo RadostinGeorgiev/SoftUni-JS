@@ -5,14 +5,14 @@ import { catsTemplate } from './templates.js';
 const root = document.getElementById('allCats');
 cats.forEach(i => i.details = false);
 
-onRender();
+update();
 
-function onRender() {
+function update() {
     render(catsTemplate(cats, onClick), root);
 }
 
 function onClick(item) {
     item.details = !item.details;
 
-    onRender();
+    update();
 }
