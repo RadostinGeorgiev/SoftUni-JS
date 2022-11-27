@@ -3,6 +3,7 @@ import { cats } from "./catSeeder.js";
 import { catsTemplate } from './templates.js';
 
 const root = document.getElementById('allCats');
+cats.forEach(i => i.details = false);
 
 onRender();
 
