@@ -15,12 +15,12 @@ let contactTemplate = (data, onDetailsClick) => html`<div class="contact card">
     </div>
 </div>`;
 
-const container = document.getElementById('contacts');
+const root = document.getElementById('contacts');
 
 onRender();
 
 function onRender() {
-    render(contacts.map(c => contactTemplate(c, onDetailsClick)), container);
+    render(contacts.map(c => contactTemplate(c, onDetailsClick)), root);
 }
 
 function onDetailsClick(person) {
