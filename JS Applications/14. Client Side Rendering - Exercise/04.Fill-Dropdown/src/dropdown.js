@@ -31,8 +31,9 @@ async function addItem(event) {
     const newItem = input.value;
 
     const response = await post(endpoints.items, { text: newItem });
-    if (response.ok) {
-        update()
+    if (response) {
+        input.value = '';
+        update();
     };
 }
 
