@@ -21,20 +21,24 @@ document.getElementById('searchBtn').addEventListener('click', onClick);
 
 let data;
 
-update();
+init();
 
-async function update() {
+async function init() {
    data = Object.values(await get(endpoints.items));
 
+   update();
+}
+
+function update() {
    render(data.map(rowTemplate), tableBody);
 }
 
 function onClick() {
    const searchedText = searchField.value.toLowerCase();
-   
+
    let records = data.map(x => Object.assign({}, x));
    records.filter(x =>
-      x.class = Object.values(x).some(x => x.toLowerCase().includes(searchedText))).
+      x.class = Object.values(x).some(x => searchedText && x.toLowerCase().includes(searchedText))).
       forEach(x => x.class = 'select');
 
    render(records.map(rowTemplate), tableBody);
