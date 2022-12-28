@@ -27,7 +27,7 @@ function solve() {
         arrive
     };
 
-C
+
     async function getRequest() {
         const url = `http://localhost:3030/jsonstore/bus/schedule/${stopId.next}`;
 

@@ -4,12 +4,15 @@ const url = 'http://localhost:3030/data/recipes';
 async function onSubmit(event) {
 	event.preventDefault();
 
+    //---- check for user authorization ----------------------------------------
     const accessToken = sessionStorage.getItem('accessToken'); 
     if (!accessToken) {
         alert('Please login!');
         window.location = 'login.html';
         return;
     }
+
+	//---- read data from input fields -----------------------------------------
 	const formData = new FormData(event.target);
 
 	const recipe = {
@@ -18,6 +21,11 @@ async function onSubmit(event) {
 		ingredients: separateLines(formData.get('ingredients')),
 		steps: separateLines(formData.get('steps')),
 	};
+
+	//---- check for empty input fields ----------------------------------------
+	if ([...formData.values()].some((x) => x == '')) {
+		throw new Error('Please fill all values');
+	}
 
 	const options = {
 		method: 'POST',
@@ -28,10 +36,6 @@ async function onSubmit(event) {
 		body: JSON.stringify(recipe),
 	};
 
-	if ([...formData.values()].some((x) => x == '')) {
-		throw new Error('Please fill all values');
-	}
-
 	try {
 		const response = await fetch(url, options);
 
@@ -41,14 +45,17 @@ async function onSubmit(event) {
 		}
 
 		const data = await response.json();
+
+		//---- redirect page ---------------------------------------------------
 		window.location = 'index.html';
+
 	} catch (error) {
 		alert(error.message);
 	}
 }
 
 function separateLines(input) {
-	//---- Split rows as array element, remove empty lines and spaces --------------
+	//---- Split rows as array element, remove empty lines and spaces ----------
 	return input
 		.split('\n')
 		.map((x) => x.trim())

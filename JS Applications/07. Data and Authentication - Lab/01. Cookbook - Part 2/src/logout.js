@@ -9,7 +9,9 @@ async function onLogOutClick() {
 	};
 
 	await fetch(url, options);
-	sessionStorage.removeItem('accessToken');
 
+	//---- clear user data from session storage & redirect page ----------------
+
+	sessionStorage.removeItem('accessToken');
 	window.location = 'index.html';
 }

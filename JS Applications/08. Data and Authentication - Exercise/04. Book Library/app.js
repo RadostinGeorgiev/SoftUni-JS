@@ -109,7 +109,7 @@ function createRow(id, data) {
 }
 
 /**
- * --- function CRUD requests ---------------------------------------------------
+ * --- function AJAX requests ---------------------------------------------------
  * --- return data or error as promise
  * @param {string} url
  * @param {object} options
@@ -138,6 +138,7 @@ async function request(method, url, data) {
 	return response.json();
 }
 
+// --- function CRUD requests ---------------------------------------------------
 const get = request.bind(null, 'GET');
 const post = request.bind(null, 'POST');
 const put = request.bind(null, 'PUT');

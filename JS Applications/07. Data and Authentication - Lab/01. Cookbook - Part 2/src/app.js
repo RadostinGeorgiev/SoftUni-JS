@@ -1,4 +1,5 @@
 window.addEventListener('load', async () => {
+	//---- get elements ------------------------------------------------------------
 	const main = document.querySelector('main');
 	const user = document.getElementById('user');
 	const guest = document.getElementById('guest');
@@ -17,6 +18,7 @@ window.addEventListener('load', async () => {
 
 });
 
+// --- read all recipes -------------------------------------------------------
 async function getRecipes() {
 	const url = 'http://localhost:3030/data/recipes?select=_id%2Cname%2Cimg';
 	const response = await fetch(url);
@@ -25,6 +27,7 @@ async function getRecipes() {
 	return Object.values(recipes);
 }
 
+// --- read recipe by Id ------------------------------------------------------
 async function getRecipeById(id) {
     const url = `http://localhost:3030/data/recipes/${id}`;
 	const response = await fetch(url);
@@ -33,6 +36,7 @@ async function getRecipeById(id) {
 	return recipe;
 }
 
+// --- create common view for all recipes -------------------------------------
 function createRecipePreview(recipe) {
 	const result = e(
 		'article',
@@ -50,6 +54,7 @@ function createRecipePreview(recipe) {
 	}
 }
 
+// --- create view for one recipe ---------------------------------------------
 function createRecipeCard(recipe) {
 	const result = e(
 		'article',
@@ -81,6 +86,7 @@ function createRecipeCard(recipe) {
 	return result;
 }
 
+// --- function for creation DOM elements ---------------------------------------
 function e(type, attributes, ...content) {
 	const result = document.createElement(type);
 
