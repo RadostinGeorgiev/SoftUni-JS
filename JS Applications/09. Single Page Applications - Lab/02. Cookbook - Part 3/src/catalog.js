@@ -1,6 +1,6 @@
 import { recipesUrl } from "./app.js";
 import { showEdit } from "./edit.js";
-import { del, get as getRecipes } from "./requests.js";
+import { del, get as getRecipes } from "./api.js";
 import { e } from "./utils.js";
 
 //---- get elements ------------------------------------------------------------

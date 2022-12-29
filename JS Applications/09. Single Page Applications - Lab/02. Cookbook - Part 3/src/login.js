@@ -1,5 +1,5 @@
 import { onLoad } from "./app.js";
-import { login } from "./requests.js";
+import { login } from "./api.js";
 import { isEmptyField } from "./utils.js";
 
 //---- get elements ------------------------------------------------------------

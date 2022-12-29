@@ -1,4 +1,4 @@
-import { logout } from "./requests.js";
+import { logout } from "./api.js";
 import { route } from "./router.js";
 import { getUserData } from "./utils.js";
 
