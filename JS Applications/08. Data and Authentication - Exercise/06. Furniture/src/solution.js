@@ -1,4 +1,4 @@
-import { get } from "./requests.js";
+import { get } from "./api.js";
 import { furnitureTemplate } from "./templates.js";
 
 const url = '/data/furniture';

@@ -1,4 +1,4 @@
-import { register } from './requests.js';
+import { register } from './api.js';
 import { isEmptyField } from './utils.js';
 window.addEventListener('DOMContentLoaded', init);
 

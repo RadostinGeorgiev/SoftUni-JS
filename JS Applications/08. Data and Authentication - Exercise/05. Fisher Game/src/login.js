@@ -1,4 +1,4 @@
-import { login } from './requests.js';
+import { login } from './api.js';
 import { isEmptyField } from './utils.js';
 window.addEventListener('DOMContentLoaded', init);
 

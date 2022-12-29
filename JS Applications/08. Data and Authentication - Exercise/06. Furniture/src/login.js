@@ -1,4 +1,4 @@
-import { login, register } from './requests.js';
+import { login, register } from './api.js';
 import { isEmptyField } from './utils.js';
 
 const registerForm = document.getElementById('register-form');

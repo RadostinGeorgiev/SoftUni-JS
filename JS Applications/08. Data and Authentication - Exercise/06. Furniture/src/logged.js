@@ -1,4 +1,4 @@
-import { get, post, logout } from "./requests.js";
+import { get, post, logout } from "./api.js";
 import { furnitureTemplate } from "./templates.js";
 import { clearFields, getUserData, isEmptyField } from "./utils.js";
 

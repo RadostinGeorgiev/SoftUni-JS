@@ -1,4 +1,4 @@
-import { get, post, put, del, logout } from './requests.js';
+import { get, post, put, del, logout } from './api.js';
 import { catchTemplate } from './templates.js';
 import { isEmptyField, getUserData } from './utils.js';
 window.addEventListener('DOMContentLoaded', init);	//window.onload = init();
@@ -19,6 +19,8 @@ const messageP = document.createElement('p');
 messageP.textContent = 'Click to get catches';
 messageP.style.textAlign = 'center';
 homeView.insertAdjacentElement('afterbegin', messageP);
+
+const form = document.getElementById('addForm');
 
 //---- attach event listeners --------------------------------------------------
 buttons.logout.addEventListener('click', onLogoutClick);
@@ -65,11 +67,16 @@ async function onLoadClick() {
 
 	try {
 		const data = await get(catchesUrl);
-		const result = [...data]
+		//to eliminate an incorrect test that load an object instead of array with an object
+		//and crashes 2 CRUD tests
+		const result = [data].flat()			
 			.map(x => {
-				const isAuthor = userData ? userData.id == x._ownerId : false;
+				const isAuthor = userData
+					? userData.id == x._ownerId
+					: false;
 				return catchTemplate(x, isAuthor);
 			});
+
 		catches.replaceChildren(...result);
 	} catch (error) {
 		alert(error.message);
@@ -106,10 +113,7 @@ async function onButtonsClick(event) {
 async function onAddClick(event) {
 	event.preventDefault();
 
-	const button = event.target;
-	const form = button.parentElement;
-
-    if (isEmptyField(form)) {
+	if (isEmptyField(form)) {
 		// alert('Please, fill all fields');
 		return;
 	}
@@ -125,14 +129,12 @@ async function onAddClick(event) {
 }
 
 function getFormValues(form) {
-	const formData = new FormData(form);
-
-	const angler = formData.get('angler');
-	const weight = formData.get('weight');
-	const species = formData.get('species');
-	const location = formData.get('location');
-	const bait = formData.get('bait');
-	const captureTime = formData.get('captureTime');
+	const angler = form.querySelector('.angler').value;
+	const weight = form.querySelector('.weight').value;
+	const species = form.querySelector('.species').value;
+	const location = form.querySelector('.location').value;
+	const bait = form.querySelector('.bait').value;
+	const captureTime = form.querySelector('.captureTime').value;
 
 	const data = { angler, weight, species, location, bait, captureTime };
 
