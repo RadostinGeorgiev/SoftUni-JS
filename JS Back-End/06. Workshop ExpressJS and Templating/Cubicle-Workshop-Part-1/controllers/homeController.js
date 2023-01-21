@@ -1,8 +1,11 @@
 const router = require('express').Router();
+const { getItems } = require('../services/data');
 
-app.get('/', (req, res) => {
-    res.render('index', {
-        title: 'Cubicle'
+router.get('/', (req, res) => {
+    const cubes = getItems();
+    res.render('home', {
+        title: 'Cubicle',
+        cubes
     });
 });
 
