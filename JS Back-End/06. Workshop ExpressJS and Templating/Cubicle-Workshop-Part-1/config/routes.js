@@ -1,6 +1,6 @@
 const homeController = require('../controllers/homeController');
 const createController = require('../controllers/createController');
-// TODO: Require Controllers...
+const detailsController = require('../controllers/detailsController');
 
 module.exports = (app) => {
     // TODO...
@@ -11,12 +11,7 @@ module.exports = (app) => {
 
     app.use('/', homeController);
     app.use('/create', createController);
-
-    app.get('/details/:id', (req, res) => {
-        res.render('details', {
-            id: req.params.id
-        });
-    });
+    app.use('/details', detailsController);
 
     app.get('/about', (req, res) => {
         res.render('about');
