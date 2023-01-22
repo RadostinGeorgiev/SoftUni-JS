@@ -1,12 +1,20 @@
 const fs = require('fs');
+const path = require('path');
+const uuid = require('uuid');
 
-getItems = () => fs.readFile('./config/database.json', (error, data) => {
-    console.log(error);
-    console.log(JSON.parse(data.toString()));
+const Cube = require('../models/Cube');
+const database = require('../config/database.json');
 
-    return JSON.parse(data.toString());
-});
+function save(cube) {
+    cube.id = uuid.v4();
+    database.cubes.push(cube);
 
-module.exports = {
-    getItems
+    filePath = path.normalize(path.join(__dirname, '../config/database.json'));
+
+    fs.writeFile(filePath, JSON.stringify(database, null, 2), (err) => {
+        if (err) throw err;
+        console.log('File was uploaded successfully!');
+    });
 }
+
+module.exports = { save }

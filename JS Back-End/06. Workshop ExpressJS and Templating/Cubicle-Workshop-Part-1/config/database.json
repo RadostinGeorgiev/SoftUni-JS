@@ -1,30 +1,32 @@
-[
+{
+  "cubes": [
     {
-        "id": "5c39f1851ab3b24f5c03e182",
-        "name": "Gan356 Air SM",
-        "description": "",
-        "imageURL": "https://ae01.alicdn.com/kf/HTB1CSddXRxRMKJjy0Fdq6yifFXa6/Gan-356-Air-SM-3x3-Black-Magic-cube-GAN-Air-SM-Magnetic-3x3x3-Speed-cube-gans.jpg",
-        "difficultyLevel": "3"
+      "name": "Gan356 Air SM",
+      "description": "",
+      "imageURL": "https://ae01.alicdn.com/kf/HTB1CSddXRxRMKJjy0Fdq6yifFXa6/Gan-356-Air-SM-3x3-Black-Magic-cube-GAN-Air-SM-Magnetic-3x3x3-Speed-cube-gans.jpg",
+      "difficultyLevel": "3",
+      "id": "f4bb8cba-74ae-45ce-9100-f36fcc3d6973"
     },
     {
-        "id": "5c39f1851ab3b24f5c03e183",
-        "name": "Eco-Dark",
-        "description": "",
-        "imageURL": "https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg",
-        "difficultyLevel": "6"
+      "name": "Eco-Dark",
+      "description": "",
+      "imageURL": "https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg",
+      "difficultyLevel": "6",
+      "id": "92270b2e-0368-448b-9eb7-b5cb874d8e31"
     },
     {
-        "id": "5c3a6888f78d6638ec8fdad6",
-        "name": "Pyraminx",
-        "description": "",
-        "imageURL": "https://images-na.ssl-images-amazon.com/images/I/61izOzq%2BBAL._SY355_.jpg",
-        "difficultyLevel": "1"
+      "name": "Pyraminx",
+      "description": "",
+      "imageURL": "https://images-na.ssl-images-amazon.com/images/I/61izOzq%2BBAL._SY355_.jpg",
+      "difficultyLevel": "1",
+      "id": "68abc691-bf53-4182-a8ab-53766d45062c"
     },
     {
-        "id": "5c3a68d9f78d6638ec8fdad7",
-        "name": "Megaminx",
-        "description": "",
-        "imageURL": "https://images-na.ssl-images-amazon.com/images/I/61HpQqVQ37L._SY355_.jpg",
-        "difficultyLevel": "3"
+      "name": "Megaminx",
+      "description": "",
+      "imageURL": "https://images-na.ssl-images-amazon.com/images/I/61HpQqVQ37L._SY355_.jpg",
+      "difficultyLevel": "3",
+      "id": "2a204600-b790-4128-bc18-25821dc93dc1"
     }
-]
+  ]
+}

@@ -1,11 +1,10 @@
 const router = require('express').Router();
-const { getItems } = require('../services/data');
+const database = require('../config/database.json');
 
 router.get('/', (req, res) => {
-    const cubes = getItems();
     res.render('home', {
         title: 'Cubicle',
-        cubes
+        cubes: database.cubes
     });
 });
 
