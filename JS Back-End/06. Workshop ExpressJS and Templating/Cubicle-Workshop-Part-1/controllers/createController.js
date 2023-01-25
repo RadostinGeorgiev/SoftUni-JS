@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const data = require('../services/data');
+const data = require('../services/cubeService');
 
 
 router.get('/', (req, res) => {
-    res.render('create');
+    res.render('create', { title: 'Cubicle - Add Page' });
 });
 
 router.post('/', (req, res) => {
