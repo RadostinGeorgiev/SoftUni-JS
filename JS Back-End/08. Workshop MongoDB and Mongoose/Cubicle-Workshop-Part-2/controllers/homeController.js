@@ -5,6 +5,8 @@ router.get('/', async (req, res) => {
     let cubes = await Cube.find({}).lean();
     console.log(cubes);
 
+
+    //TODO: Use query to search in DB
     if (req.query.search) {
         cubes = cubes.filter(c => c.name.toLowerCase()
             .includes(req.query.search.toLowerCase()));
