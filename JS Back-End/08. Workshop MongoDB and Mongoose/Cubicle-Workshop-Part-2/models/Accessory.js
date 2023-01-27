@@ -1,12 +1,12 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const accessorySchema = new Schema({
     name: { type: String, required: true },
-    description: { type: String, required: true, max: 200 },
-    imageUrl: String,
-    difficultyLevel: { type: Number, required: true, min: 1, max: 10 },
+    description: { type: String, required: true, maxLength: 500 },
+    imageUrl: { type: String, required: true},
+    cubes: [{ type: Types.ObjectId, ref: 'Cube' }]
 })
 
-const Accessory  = model('accessories', accessorySchema);
+const Accessory = model('accessories', accessorySchema);
 
 module.exports = Accessory;
