@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const accessorySchema = new Schema({
     name: {
@@ -18,7 +18,7 @@ const accessorySchema = new Schema({
     description: {
         type: String,
         required: true,
-        maxLength: 50
+        maxLength: 500
     },
 });
 
