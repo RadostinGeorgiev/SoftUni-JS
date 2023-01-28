@@ -1,4 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
+const validator = require('mongoose-validators');
 
 const cubeSchema = new Schema({
     name: {
@@ -8,15 +9,13 @@ const cubeSchema = new Schema({
     description: {
         type: String,
         required: true,
-        maxLength: 50,
+        maxLength: 500,
     },
     imageUrl: {
         type: String,
         required: true,
         validate: {
-            validator: function (value) {
-                return validator.isURL(value, { protocols: ['http', 'https'] });
-            },
+            validator: (value) => validator.isURL(value, { protocols: ['http', 'https'] }),
             message: '{VALUE} is not a valid HTTP or HTTPS URL!'
         }
     },

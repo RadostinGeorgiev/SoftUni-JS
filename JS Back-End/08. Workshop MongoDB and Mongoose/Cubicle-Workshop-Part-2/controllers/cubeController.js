@@ -2,6 +2,19 @@ const router = require('express').Router();
 const Cube = require('../models/Cube');
 const Accessory = require('../models/Accessory');
 
+router.get('/create', (req, res) => {
+    res.render('create/cube');
+});
+
+router.post('/create', async (req, res) => {
+    if (!req.body) return res.sendStatus(400);
+
+    const cube = new Cube(req.body);
+    const cubeId = await cube.save();
+
+    res.redirect(`/${cubeId._id}/attach`);
+});
+
 router.get('/:cubeId', async (req, res) => {
     const cube = await Cube.findById(req.params.cubeId).populate('accessories').lean();
 

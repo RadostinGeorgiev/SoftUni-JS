@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const validator = require('mongoose-validators');
 
 const accessorySchema = new Schema({
     name: {
@@ -9,9 +10,7 @@ const accessorySchema = new Schema({
         type: String,
         required: true,
         validate: {
-            validator: function (value) {
-                return validator.isURL(value, { protocols: ['http', 'https'] });
-            },
+            validator: (value) => validator.isURL(value, { protocols: ['http', 'https'] }),
             message: '{VALUE} is not a valid HTTP or HTTPS URL!'
         }
     },

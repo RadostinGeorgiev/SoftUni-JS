@@ -1,6 +1,6 @@
 const homeController = require('../controllers/homeController');
-const createController = require('../controllers/createController');
-const detailsController = require('../controllers/detailsController');
+const cubeController = require('../controllers/cubeController');
+const accessoryController = require('../controllers/accessoryController');
 
 module.exports = (app) => {
     //print the current request to the server
@@ -10,11 +10,8 @@ module.exports = (app) => {
     })
 
     app.use('/', homeController);
-    app.use('/create', createController);
-    app.use('/details', detailsController);
-    app.get('/about', (req, res) => {
-        res.render('about', { title: 'Cubicle - About Page' });
-    });
+    app.use('/cube', cubeController);
+    app.use('/accessory', accessoryController);
 
     app.get('*', (req, res) => {
         res.status(404).render('404');
