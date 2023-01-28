@@ -3,7 +3,7 @@ const Cube = require('../models/Cube');
 const Accessory = require('../models/Accessory');
 
 router.get('/:cubeId', async (req, res) => {
-    const cube = await Cube.findById(req.params.cubeId).lean();
+    const cube = await Cube.findById(req.params.cubeId).populate('accessories').lean();
 
     res.render('details', { title: 'Cubicle - Details', cube });
 });

@@ -12,7 +12,6 @@ router.get('/accessory', (req, res) => {
 
 router.post('/cube', async (req, res) => {
     if (!req.body) return res.sendStatus(400);
-    console.log(req.body);
 
     const cube = new Cube(req.body);
     const cubeId = await cube.save();
