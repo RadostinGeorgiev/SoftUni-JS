@@ -26,7 +26,7 @@ window.addEventListener('load', async () => {
         setUserNav
     }
 
-    setupHome(main, document.getElementById('home'), setActiveNav);
+    setupHome(main, document.getElementById('home'), setActiveNav, ctx);
     setupCatalog(main, document.getElementById('catalog'), setActiveNav);
     setupCreate(main, document.getElementById('create'), setActiveNav, ctx);
     setupLogin(main, document.getElementById('login'), setActiveNav, ctx);
