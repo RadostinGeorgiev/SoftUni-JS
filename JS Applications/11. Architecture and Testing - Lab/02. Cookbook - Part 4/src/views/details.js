@@ -1,37 +1,9 @@
+import { getUserId } from '../api/authentication.js';
+import { deleteItemById, getItemById } from '../api/data.js';
 import { e } from '../dom.js';
 import { showEdit } from './edit.js';
 
-
-async function getRecipeById(id) {
-    const response = await fetch('http://localhost:3030/data/recipes/' + id);
-    const recipe = await response.json();
-
-    return recipe;
-}
-
-async function deleteRecipeById(id) {
-    const token = sessionStorage.getItem('authToken');
-
-    try {
-        const response = await fetch('http://localhost:3030/data/recipes/' + id, {
-            method: 'delete',
-            headers: {
-                'X-Authorization': token
-            }
-        });
-
-        if (response.status != 200) {
-            const error = await response.json();
-            throw new Error(error.message);
-        }
-
-        section.innerHTML = '';
-        section.appendChild(e('article', {}, e('h2', {}, 'Recipe deleted')));
-    } catch (err) {
-        alert(err.message);
-    }
-}
-
+//---- create card for recipe details ------------------------------------------
 function createRecipeCard(recipe) {
     const result = e('article', {},
         e('h2', {}, recipe.name),
@@ -48,7 +20,8 @@ function createRecipeCard(recipe) {
         ),
     );
 
-    const userId = sessionStorage.getItem('userId');
+//---- checks if the user is the creator of the recipe & show edit and delete buttons -
+const userId = getUserId();
     if (userId != null && recipe._ownerId == userId) {
         result.appendChild(e('div', { className: 'controls' },
             e('button', { onClick: () => showEdit(recipe._id) }, '\u270E Edit'),
@@ -61,7 +34,9 @@ function createRecipeCard(recipe) {
     function onDelete() {
         const confirmed = confirm(`Are you sure you want to delete ${recipe.name}?`);
         if (confirmed) {
-            deleteRecipeById(recipe._id);
+            deleteItemById(recipe._id);
+            section.innerHTML = '';
+            section.appendChild(e('article', {}, e('h2', {}, 'Recipe deleted')));
         }
     }
 }
@@ -69,11 +44,13 @@ function createRecipeCard(recipe) {
 let main;
 let section;
 let setActiveNav;
+let ctx;
 
-export function setupDetails(targetMain, targetSection, onActiveNav) {
+export function setupDetails(targetMain, targetSection, onActiveNav, ctxExt) {
     main = targetMain;
     section = targetSection;
     setActiveNav = onActiveNav;
+    ctx = ctxExt;
 }
 
 export async function showDetails(id) {
@@ -82,7 +59,7 @@ export async function showDetails(id) {
     main.innerHTML = '';
     main.appendChild(section);
 
-    const recipe = await getRecipeById(id);
+    const recipe = await getItemById(id);
     section.innerHTML = '';
     section.appendChild(createRecipeCard(recipe));
 }

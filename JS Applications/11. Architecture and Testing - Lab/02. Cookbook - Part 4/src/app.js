@@ -31,7 +31,7 @@ window.addEventListener('load', async () => {
     setupCreate(main, document.getElementById('create'), setActiveNav, ctx);
     setupLogin(main, document.getElementById('login'), setActiveNav, ctx);
     setupRegister(main, document.getElementById('register'), setActiveNav, ctx);
-    setupDetails(main, document.getElementById('details'), setActiveNav);
+    setupDetails(main, document.getElementById('details'), setActiveNav, ctx);
     setupEdit(main, document.getElementById('edit'), setActiveNav);
     document.getElementById('views').remove();
 
