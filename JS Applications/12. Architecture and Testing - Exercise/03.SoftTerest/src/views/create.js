@@ -1,5 +1,5 @@
-import { createItem } from "./data.js";
-import { isEmptyField } from "./utils.js";
+import { createItem } from "../api/data.js";
+import { isEmptyField } from "../utils.js";
 
 //---- get elements ------------------------------------------------------------
 const section = document.getElementById('createPage');

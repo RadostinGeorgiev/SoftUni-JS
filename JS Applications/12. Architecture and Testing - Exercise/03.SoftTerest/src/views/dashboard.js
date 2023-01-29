@@ -1,4 +1,4 @@
-import { getAllItems } from "./data.js";
+import { getAllItems } from '../api/data.js';
 
 //---- get elements ------------------------------------------------------------
 const section = document.getElementById('dashboard-holder');

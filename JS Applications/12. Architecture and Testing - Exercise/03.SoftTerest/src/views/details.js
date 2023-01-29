@@ -1,5 +1,5 @@
-import { deleteItemById, getItemById } from "./data.js";
-import { getUserData } from "./utils.js";
+import { deleteItemById, getItemById } from "../api/data.js";
+import { getUserData } from "../utils.js";
 
 //---- get elements ------------------------------------------------------------
 const section = document.getElementById('detailsPage');

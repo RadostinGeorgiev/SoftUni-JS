@@ -1,5 +1,6 @@
-import { login } from "./data.js";
-import { isEmptyField } from "./utils.js";
+
+import { login } from "../api/authentication.js";
+import { isEmptyField } from "../utils.js";
 
 //---- get elements ------------------------------------------------------------
 const section = document.getElementById('loginPage');

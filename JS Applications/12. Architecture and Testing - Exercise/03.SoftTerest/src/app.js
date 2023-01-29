@@ -1,11 +1,13 @@
-import { showCreatePage } from './create.js'
-import { showDashboardPage } from './dashboard.js'
-import { showDetailsPage } from './details.js'
-import { showHomePage } from './home.js'
-import { showLoginPage } from './login.js'
-import { showRegisterPage } from './register.js'
+import { logout } from './api/authentication.js'
+
+import { showHomePage } from './views/home.js'
+import { showRegisterPage } from './views/register.js'
+import { showLoginPage } from './views/login.js'
+import { showDashboardPage } from './views/dashboard.js'
+import { showCreatePage } from './views/create.js'
+import { showDetailsPage } from './views/details.js'
 import { getUserData } from './utils.js'
-import { logout } from './data.js'
+
 
 //---- creating associations between navbar links and views --------------------
 const links = {
@@ -37,13 +39,13 @@ nav.addEventListener('click', onNavigate);
 logoutBtn.addEventListener('click', onLogout);
 
 const ctx = {
-    goTo,
+    goTo: redirect,
     showSection,
     updateNav
 }
 
 updateNav();
-goTo('home');
+redirect('home');
 
 function showSection(section) {
     main.replaceChildren(section);
@@ -55,12 +57,12 @@ function onNavigate(event) {
     
     if (name) {
         event.preventDefault();
-        goTo(name);
+        redirect(name);
     }
 }
 
 //---- function for page redirect ----------------------------------------------
-function goTo(name, ...params) {
+function redirect(name, ...params) {
     const view = views[name];
     if (typeof view == 'function') {
         view(ctx, ...params);
@@ -90,5 +92,5 @@ async function onLogout(event) {
     await logout();
     
     updateNav();
-    goTo('home');
+    redirect('home');
 }
