@@ -1,0 +1,10 @@
+1. Extract project skeleton and examine files
+2. Setup NPM project (package.json + libraries)
+3. Analyze the HTML and determine templates
+4. Configure routing with placeholder modules
+5. Implement requests
+6. Implement each view
+6.1 Create static templates
+6.2 Implement fetch requests
+6.3 Add parameters to template
+6.4 Add event listeners (if any)
