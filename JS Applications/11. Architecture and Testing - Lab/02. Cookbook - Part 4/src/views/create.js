@@ -1,3 +1,4 @@
+import { getUserData } from '../api/authentication.js';
 import { createItem } from '../api/data.js';
 import { showDetails } from './details.js';
 
@@ -20,7 +21,6 @@ export function setupCreate(targetMain, targetSection, onActiveNav, ctxExt) {
 
     async function onSubmit(event) {
         event.preventDefault();
-
         const formData = new FormData(event.target);
 
         const data = {
@@ -30,7 +30,7 @@ export function setupCreate(targetMain, targetSection, onActiveNav, ctxExt) {
             steps: formData.get('steps').trim().split('\n').map(l => l.trim()).filter(l => l != '')
         };
 
-        const userData = sessionStorage.getItem('userData');
+        const userData = getUserData();
         if (userData == null) {
             return alert('You\'re not logged in!');
         }
@@ -38,8 +38,6 @@ export function setupCreate(targetMain, targetSection, onActiveNav, ctxExt) {
         const response = await createItem(data);
 
         form.reset();
-        ctx.setUserNav();
-
         //---- redirect to details page -------------------------------------------
         showDetails(response._id);
     }

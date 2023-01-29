@@ -32,7 +32,7 @@ window.addEventListener('load', async () => {
     setupLogin(main, document.getElementById('login'), setActiveNav, ctx);
     setupRegister(main, document.getElementById('register'), setActiveNav, ctx);
     setupDetails(main, document.getElementById('details'), setActiveNav, ctx);
-    setupEdit(main, document.getElementById('edit'), setActiveNav);
+    setupEdit(main, document.getElementById('edit'), setActiveNav, ctx);
     document.getElementById('views').remove();
 
     //---- creating associations between navbar links and views --------------------
