@@ -1,52 +1,43 @@
 import { showCatalog } from './catalog.js';
-
+import { isEmptyField } from "../utils.js";
+import { login } from '../api/authentication.js';
 
 let main;
 let section;
 let setActiveNav;
+let ctx = null;
 
-export function setupLogin(targetMain, targetSection, onActiveNav) {
+export function setupLogin(targetMain, targetSection, onActiveNav, ctxExt) {
     main = targetMain;
     section = targetSection;
     setActiveNav = onActiveNav;
+    ctx = ctxExt;
 
-    const form = targetSection.querySelector('form');
+    //---- get elements ------------------------------------------------------------
+    const form = section.querySelector('form');
 
-    form.addEventListener('submit', (ev => {
-        ev.preventDefault();
-        const formData = new FormData(ev.target);
-        onSubmit([...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {}));
-    }));
+    //---- attach event listeners --------------------------------------------------
+    form.addEventListener('submit', onSubmit);
 
-    async function onSubmit(data) {
-        const body = JSON.stringify({
-            email: data.email,
-            password: data.password,
-        });
+    async function onSubmit(event) {
+        event.preventDefault();
 
-        try {
-            const response = await fetch('http://localhost:3030/users/login', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body
-            });
-            const data = await response.json();
-            if (response.status == 200) {
-                sessionStorage.setItem('authToken', data.accessToken);
-                sessionStorage.setItem('userId', data._id);
-                document.getElementById('user').style.display = 'inline-block';
-                document.getElementById('guest').style.display = 'none';
-                
-                showCatalog();
-            } else {
-                alert(data.message);
-                throw new Error(data.message);
-            }
-        } catch (err) {
-            console.error(err.message);
+        //---- checking for empty fields -------------------------------------------
+        if (isEmptyField(form)) {
+            return alert('Please, fill all fields');
         }
+
+        //---- read form fields ----------------------------------------------------
+        const formData = new FormData(event.target);
+
+        const email = formData.get('email').trim();
+        const password = formData.get('password').trim();
+
+        await login(email, password);
+
+        ctx.setUserNav();
+        form.reset();
+        showCatalog();
     }
 }
 

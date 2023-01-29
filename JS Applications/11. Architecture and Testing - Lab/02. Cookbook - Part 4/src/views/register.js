@@ -1,55 +1,48 @@
 import { showCatalog } from './catalog.js';
-
+import { isEmptyField } from '../utils.js';
+import { register } from '../api/authentication.js';
 
 let main;
 let section;
 let setActiveNav;
+let ctx = null;
 
-export function setupRegister(targetMain, targetSection, onActiveNav) {
+export function setupRegister(targetMain, targetSection, onActiveNav, ctxExt) {
     main = targetMain;
     section = targetSection;
     setActiveNav = onActiveNav;
+    ctx = ctxExt;
+
+    //---- get elements ------------------------------------------------------------
     const form = targetSection.querySelector('form');
 
-    form.addEventListener('submit', (ev => {
-        ev.preventDefault();
-        const formData = new FormData(ev.target);
-        onSubmit([...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {}));
-    }));
+    //---- attach event listeners --------------------------------------------------
+    form.addEventListener('submit', onSubmit);
 
-    async function onSubmit(data) {
-        if (data.password != data.rePass) {
+    async function onSubmit(event) {
+        event.preventDefault();
+
+        //---- checking for empty fields -------------------------------------------
+        if (isEmptyField(form)) {
+            return alert('Please, fill all fields');
+        }
+
+        //---- read form fields ----------------------------------------------------
+        const formData = new FormData(event.target);
+
+        const email = formData.get('email').trim();
+        const password = formData.get('password').trim();
+        const rePass = formData.get('rePass').trim();
+
+        if (password != rePass) {
             return alert('Passwords don\'t match');
         }
 
-        const body = JSON.stringify({
-            email: data.email,
-            password: data.password,
-        });
+        await register(email, password);
 
-        try {
-            const response = await fetch('http://localhost:3030/users/register', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body
-            });
-            const data = await response.json();
-            if (response.status == 200) {
-                sessionStorage.setItem('authToken', data.accessToken);
-                sessionStorage.setItem('userId', data._id);
-                document.getElementById('user').style.display = 'inline-block';
-                document.getElementById('guest').style.display = 'none';
-
-                showCatalog();
-            } else {
-                alert(data.message);
-                throw new Error(data.message);
-            }
-        } catch (err) {
-            console.error(err.message);
-        }
+        ctx.setUserNav();
+        form.reset();
+        showCatalog();
     }
 }
 

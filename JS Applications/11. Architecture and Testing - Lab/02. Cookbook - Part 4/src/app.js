@@ -1,3 +1,5 @@
+import { getUserData, logout } from './api/authentication.js';
+
 import { setupHome, showHome } from './views/home.js';
 import { setupCatalog, showCatalog } from './views/catalog.js';
 import { setupCreate, showCreate } from './views/create.js';
@@ -10,42 +12,69 @@ import { setupEdit } from './views/edit.js';
 window.addEventListener('load', async () => {
     setUserNav();
 
+    //---- get elements ------------------------------------------------------------
     const main = document.querySelector('main');
     const nav = document.querySelector('nav');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    //---- attach event listeners --------------------------------------------------
+    nav.addEventListener('click', onNavigate);
+    logoutBtn.addEventListener('click', onLogout);
+
+    const ctx = {
+        goTo,
+        setUserNav
+    }
 
     setupHome(main, document.getElementById('home'), setActiveNav);
     setupCatalog(main, document.getElementById('catalog'), setActiveNav);
     setupCreate(main, document.getElementById('create'), setActiveNav);
-    setupLogin(main, document.getElementById('login'), setActiveNav);
-    setupRegister(main, document.getElementById('register'), setActiveNav);
+    setupLogin(main, document.getElementById('login'), setActiveNav, ctx);
+    setupRegister(main, document.getElementById('register'), setActiveNav, ctx);
     setupDetails(main, document.getElementById('details'), setActiveNav);
     setupEdit(main, document.getElementById('edit'), setActiveNav);
     document.getElementById('views').remove();
 
-    
+    //---- creating associations between navbar links and views --------------------
     const links = {
-        'homeLink': showHome,
-        'catalogLink': showCatalog,
-        'createLink': showCreate,
-        'loginLink': showLogin,
-        'registerLink': showRegister,
-        'logoutBtn': logout,
+        'homeLink': 'home',
+        'registerLink': 'register',
+        'loginLink': 'login',
+        'catalogLink': 'catalog',
+        'createLink': 'create',
     };
-    setupNavigation();
-    
-    // Start application in home view
-    showHome();
 
-    function setupNavigation() {
-        nav.addEventListener('click', (ev) => {
-            if (ev.target.tagName == 'A') {
-                const handler = links[ev.target.id];
-                if (handler) {
-                    ev.preventDefault();
-                    handler();
-                }
-            }
-        });
+    //---- creating associations between views and showPage functions---------------
+    const views = {
+        'home': showHome,
+        'register': showRegister,
+        'login': showLogin,
+        'catalog': showCatalog,
+        'create': showCreate,
+    }
+
+
+    //---- function for page redirect ----------------------------------------------
+    function goTo(name, ...params) {
+        const view = views[name];
+
+        if (typeof view == 'function') {
+            view(ctx, ...params);
+        }
+    }
+
+    // Start application in home view
+    setUserNav();
+    goTo('home');
+
+    //---- page change function when navigating from navbar ------------------------
+    function onNavigate(event) {
+        const name = links[event.target.id];
+
+        if (name) {
+            event.preventDefault();
+            goTo(name);
+        }
     }
 
     function setActiveNav(targetId) {
@@ -53,7 +82,9 @@ window.addEventListener('load', async () => {
     }
 
     function setUserNav() {
-        if (sessionStorage.getItem('authToken') != null) {
+        const userData = getUserData();
+
+        if (userData != null) {
             document.getElementById('user').style.display = 'inline-block';
             document.getElementById('guest').style.display = 'none';
         } else {
@@ -62,19 +93,13 @@ window.addEventListener('load', async () => {
         }
     }
 
-    async function logout() {
-        const response = await fetch('http://localhost:3030/users/logout', {
-            method: 'get',
-            headers: {
-                'X-Authorization': sessionStorage.getItem('authToken')
-            },
-        });
-        if (response.status == 200) {
-            sessionStorage.removeItem('authToken');
-            setUserNav();
-            showCatalog();
-        } else {
-            console.error(await response.json());
-        }
+    //---- logout function ---------------------------------------------------------
+    async function onLogout(event) {
+        event.preventDefault();
+
+        await logout();
+
+        setUserNav();
+        showCatalog();
     }
 });

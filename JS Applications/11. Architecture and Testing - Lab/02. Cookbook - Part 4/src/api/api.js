@@ -51,6 +51,7 @@ async function request(method, url, data) {
 		alert(error.message);
 		throw error;
 	}
+
 }
 
 const get = request.bind(null, 'GET');
