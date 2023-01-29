@@ -1,7 +1,22 @@
-import { getUserId } from '../api/authentication.js';
+import { getUserId, isLogged } from '../api/authentication.js';
 import { deleteItemById, getItemById } from '../api/data.js';
 import { e } from '../dom.js';
-import { showEdit } from './edit.js';
+
+let ctx;
+
+//---- get elements ------------------------------------------------------------
+const section = document.getElementById('details');
+
+export async function showDetails(ctxExt, id) {
+    ctx = ctxExt;
+    ctx.setActiveNav();
+    section.innerHTML = 'Loading&hellip;';
+    ctx.showSection(section);
+    
+    const recipe = await getItemById(id);
+    section.innerHTML = '';
+    section.appendChild(createRecipeCard(recipe));
+}
 
 //---- create card for recipe details ------------------------------------------
 function createRecipeCard(recipe) {
@@ -20,11 +35,11 @@ function createRecipeCard(recipe) {
         ),
     );
 
-//---- checks if the user is the creator of the recipe & show edit and delete buttons -
-const userId = getUserId();
+    //---- checks if the user is the creator of the recipe & show edit and delete buttons -
+    const userId = isLogged() ? getUserId() : null;
     if (userId != null && recipe._ownerId == userId) {
         result.appendChild(e('div', { className: 'controls' },
-            e('button', { onClick: () => showEdit(recipe._id) }, '\u270E Edit'),
+            e('button', { onClick: () => ctx.showView('edit',recipe._id) }, '\u270E Edit'),
             e('button', { onClick: onDelete }, '\u2716 Delete'),
         ));
     }
@@ -39,27 +54,4 @@ const userId = getUserId();
             section.appendChild(e('article', {}, e('h2', {}, 'Recipe deleted')));
         }
     }
-}
-
-let main;
-let section;
-let setActiveNav;
-let ctx;
-
-export function setupDetails(targetMain, targetSection, onActiveNav, ctxExt) {
-    main = targetMain;
-    section = targetSection;
-    setActiveNav = onActiveNav;
-    ctx = ctxExt;
-}
-
-export async function showDetails(id) {
-    setActiveNav();
-    section.innerHTML = 'Loading&hellip;';
-    main.innerHTML = '';
-    main.appendChild(section);
-
-    const recipe = await getItemById(id);
-    section.innerHTML = '';
-    section.appendChild(createRecipeCard(recipe));
 }
