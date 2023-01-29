@@ -1,12 +1,6 @@
+import { getAllItems } from '../api/data.js';
 import { e } from '../dom.js';
 import { showDetails } from './details.js';
-
-async function getRecipes() {
-    const response = await fetch('http://localhost:3030/data/recipes?select=' + encodeURIComponent('_id,name,img'));
-    const recipes = await response.json();
-
-    return recipes;
-}
 
 function createRecipePreview(recipe) {
     const result = e('article', { className: 'preview', onClick: () => showDetails(recipe._id) },
@@ -33,7 +27,7 @@ export async function showCatalog() {
     main.innerHTML = '';
     main.appendChild(section);
 
-    const recipes = await getRecipes();
+    const recipes = await getAllItems();
     const cards = recipes.map(createRecipePreview);
 
     const fragment = document.createDocumentFragment();
