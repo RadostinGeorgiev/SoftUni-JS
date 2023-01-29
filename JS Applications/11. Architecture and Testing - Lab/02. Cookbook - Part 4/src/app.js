@@ -28,7 +28,7 @@ window.addEventListener('load', async () => {
 
     setupHome(main, document.getElementById('home'), setActiveNav);
     setupCatalog(main, document.getElementById('catalog'), setActiveNav);
-    setupCreate(main, document.getElementById('create'), setActiveNav);
+    setupCreate(main, document.getElementById('create'), setActiveNav, ctx);
     setupLogin(main, document.getElementById('login'), setActiveNav, ctx);
     setupRegister(main, document.getElementById('register'), setActiveNav, ctx);
     setupDetails(main, document.getElementById('details'), setActiveNav);

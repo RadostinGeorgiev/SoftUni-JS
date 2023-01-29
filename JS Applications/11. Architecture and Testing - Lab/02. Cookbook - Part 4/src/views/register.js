@@ -40,8 +40,8 @@ export function setupRegister(targetMain, targetSection, onActiveNav, ctxExt) {
 
         await register(email, password);
 
-        ctx.setUserNav();
         form.reset();
+        ctx.setUserNav();
         showCatalog();
     }
 }

@@ -1,55 +1,47 @@
+import { createItem } from '../api/data.js';
 import { showDetails } from './details.js';
-
 
 let main;
 let section;
 let setActiveNav;
+let ctx;
 
-export function setupCreate(targetMain, targetSection, onActiveNav) {
+export function setupCreate(targetMain, targetSection, onActiveNav, ctxExt) {
     main = targetMain;
     section = targetSection;
     setActiveNav = onActiveNav;
+    ctx = ctxExt;
+
+    //---- get elements ------------------------------------------------------------
     const form = targetSection.querySelector('form');
 
-    form.addEventListener('submit', (ev => {
-        ev.preventDefault();
-        const formData = new FormData(ev.target);
-        onSubmit([...formData.entries()].reduce((p, [k, v]) => Object.assign(p, { [k]: v }), {}));
-    }));
+    //---- attach event listeners --------------------------------------------------
+    form.addEventListener('submit', onSubmit);
 
-    async function onSubmit(data) {
-        const body = JSON.stringify({
-            name: data.name,
-            img: data.img,
-            ingredients: data.ingredients.split('\n').map(l => l.trim()).filter(l => l != ''),
-            steps: data.steps.split('\n').map(l => l.trim()).filter(l => l != '')
-        });
+    async function onSubmit(event) {
+        event.preventDefault();
 
-        const token = sessionStorage.getItem('authToken');
-        if (token == null) {
+        const formData = new FormData(event.target);
+
+        const data = {
+            name: formData.get('name').trim(),
+            img: formData.get('img').trim(),
+            ingredients: formData.get('ingredients').trim().split('\n').map(l => l.trim()).filter(l => l != ''),
+            steps: formData.get('steps').trim().split('\n').map(l => l.trim()).filter(l => l != '')
+        };
+
+        const userData = sessionStorage.getItem('userData');
+        if (userData == null) {
             return alert('You\'re not logged in!');
         }
 
-        try {
-            const response = await fetch('http://localhost:3030/data/recipes', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Authorization': token
-                },
-                body
-            });
+        const response = await createItem(data);
 
-            if (response.status == 200) {
-                showDetails((await response.json())._id);
-            } else {
-                const error = await response.json();
-                throw new Error(error.message);
-            }
-        } catch (err) {
-            alert(err.message);
-            console.error(err.message);
-        }
+        form.reset();
+        ctx.setUserNav();
+
+        //---- redirect to details page -------------------------------------------
+        showDetails(response._id);
     }
 }
 

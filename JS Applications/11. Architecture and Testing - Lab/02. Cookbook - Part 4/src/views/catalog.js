@@ -2,6 +2,7 @@ import { getAllItems } from '../api/data.js';
 import { e } from '../dom.js';
 import { showDetails } from './details.js';
 
+//---- create card for recipe --------------------------------------------------
 function createRecipePreview(recipe) {
     const result = e('article', { className: 'preview', onClick: () => showDetails(recipe._id) },
         e('div', { className: 'title' }, e('h2', {}, recipe.name)),
@@ -21,6 +22,7 @@ export function setupCatalog(targetMain, targetSection, onActiveNav) {
     setActiveNav = onActiveNav;
 }
 
+//---- read all recipes & fill page with recipes cards -------------------------
 export async function showCatalog() {
     setActiveNav('catalogLink');
     section.innerHTML = 'Loading&hellip;';

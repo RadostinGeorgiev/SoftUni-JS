@@ -35,8 +35,8 @@ export function setupLogin(targetMain, targetSection, onActiveNav, ctxExt) {
 
         await login(email, password);
 
-        ctx.setUserNav();
         form.reset();
+        ctx.setUserNav();
         showCatalog();
     }
 }
