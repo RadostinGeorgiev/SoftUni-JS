@@ -9,8 +9,8 @@ async function main() {
     require('./config/routes')(app);
     await require('./config/database')(app);
 
-    app.listen(config.port);
-    console.log(`Listening on port ${config.port}! Now its up to you...`);
+    app.listen(config.PORT);
+    console.log(`Listening on port ${config.PORT}! Now its up to you...`);
 }
 
 // start application
