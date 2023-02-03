@@ -3,7 +3,7 @@
     "id": "b61f4657-9ff6-4d3d-8125-5b75d2614a06",
     "name": "Pretty Kitty",
     "description": "Dominant and aggressive to other cats. Will probably eat you in your sleep. Very cute tho.",
-    "breed": "Bombay",
+    "breed": "Bombay Cat",
     "image": "cat-pretty-kitty.jpg",
     "sheltered": false
   },
@@ -11,7 +11,7 @@
     "id": "c84f298d-3030-451f-af80-de9547ad3e19",
     "name": "Bomboy",
     "description": "The American Bobtail is an uncommon breed of domestic cat which was developed in the late 1960s. It is most notable for its stubby \"bobbed\" tail about one-third to one-half the length of a normal cat's tail.",
-    "breed": "American",
+    "breed": "American Bobtail",
     "image": "cat-bomboy.jpg",
     "sheltered": false
   },
@@ -27,7 +27,7 @@
     "id": "a6978f87-59c7-4b8d-8228-daed9cb6fec7",
     "name": "Pixi",
     "description": "The American Curl is a breed of cat characterized by its unusual ears, which curl back from the face toward the center of the back of the skull. The breed originated in Lakewood, California, as the result of a spontaneous mutation.",
-    "breed": "American",
+    "breed": "American Curl",
     "image": "cat-pixi.jpg",
     "sheltered": false
   },
@@ -35,7 +35,7 @@
     "id": "d422602f-4ea3-4f74-9373-e63c59f57181",
     "name": "Lazy",
     "description": "The Turkish Van is a naturally occurring breed of domestic cat that originated in the Lake Van area of modern-day Turkey, part of Armenian Highlands. The Van is classified as a semi-long hair, but it has two lengths of hair, determined by season. In the winter, the hair is thick and long.",
-    "breed": "Turkish",
+    "breed": "Turkish Van",
     "image": "cat-lazy.jpg",
     "sheltered": false
   },

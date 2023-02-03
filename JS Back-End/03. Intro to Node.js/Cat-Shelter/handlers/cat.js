@@ -87,7 +87,7 @@ module.exports = (req, res) => {
                         image: files.upload.originalFilename,
                         sheltered: false
                     });
-
+                    
                     fs.writeFile(filePath, JSON.stringify(cats, null, 2), 'utf-8', () => {
                         console.log('The cat was uploaded successfully!');
                         res.writeHead(301, { Location: '/' });
@@ -97,34 +97,44 @@ module.exports = (req, res) => {
             });
         });
     } else if (pathname.includes('/cats-edit') && req.method == 'GET') {
-        const filePath = path.normalize(path.join(__dirname, '../views/editCat.html'));
-        const reader = fs.createReadStream(filePath);
-
-        const id = url.parse(req.url).pathname.split('/')[2];
-        const cat = cats.find((cat) => cat.id == id);
+        const imagePath = (image) => path.normalize(path.join(__dirname, `../content/images/${image}`));
 
         const catPlaceholder = (cat) => `
         <form action="/cats-edit/${cat.id}" method="post" class="cat-form" enctype="multipart/form-data">
-            <h2>Edit Cat</h2>
-            <label for="name">Name</label>
-            <input type="text" id="name" value="${cat.name}">
-            <label for="description">Description</label>
-            <textarea id="description">${cat.description}</textarea>
-            <label for="image">Image</label>
-            <input type="file" id="image">
-            <label for="group">Breed</label>
-            <select name="breed" id="group" value="{{breed}}">
-                {{catBreeds}}
-            </select>
-            <button>Edit Cat</button>
+        <h2>Edit Cat</h2>
+        <label for="name">Name</label>
+        <input type="text" id="name" value="${cat.name}">
+        <label for="description">Description</label>
+        <textarea id="description">${cat.description}</textarea>
+        <label for="image">Image</label>
+        <input type="file" id="image">
+        <label for="group">Breed</label>
+        <select name="breed" id="group" value="{{breed}}">
+            {{catBreeds}}
+        </select>
+        <button>Edit Cat</button>
         </form>`;
 
-        const catBreedPlaceholder = breeds.map((breed) => `<option value=${breed}>${breed}</option>`);
+        const catBreedPlaceholder = (cat) => {
+            return breeds.map((breed) => {
+                if (breed == cat.breed) {
+                    return `<option value=${breed} selected>${breed}</option>`
+                } else {
+                    return `<option value=${breed}>${breed}</option>`
+                }
+            }).join('');
+        };
+
+        const filePath = path.normalize(path.join(__dirname, '../views/editCat.html'));
+        const reader = fs.createReadStream(filePath);
 
         reader.on('data', (data) => {
+            const id = url.parse(req.url).pathname.split('/')[2];
+            const cat = cats.find((cat) => cat.id == id);
+
             data = data.toString();
             data = data.replace('{{cat}}', catPlaceholder(cat));
-            data = data.replace("{{catBreeds}}", catBreedPlaceholder.join(''));
+            data = data.replace("{{catBreeds}}", catBreedPlaceholder(cat));
             data = data.replace('{{breed}}', cat.breed);
 
             res.write(data);
@@ -137,28 +147,27 @@ module.exports = (req, res) => {
         const filePath = path.normalize(path.join(__dirname, '../data/cats.json'));
         const id = url.parse(req.url).pathname.split('/')[2];
 
-        const form = formidable({});
+        const form = formidable({ multiples: false, uploadDir: __dirname });
 
         form.parse(req, (err, fields, files) => {
             if (err) throw err;
 
-
-            fs.readFile('./data/cats.json', (err, data) => {
+            fs.readFile(filePath, (err, data) => {
                 if (err) {
                     throw err;
                 } else {
                     const cats = JSON.parse(data);
-                    
+
                     let oldPath = files.upload.filepath;
                     let newPath = path.normalize(path.join(__dirname, '../content/images/' + cats.image));
-                    
+
                     if (newPath !== oldPath) {
                         fs.copyFile(oldPath, newPath, (err) => {
                             if (err) throw err;
                             console.log('File was uploaded successfully!');
                         });
                     }
-                    
+
                     cats[id] = {
                         id,
                         ...fields,
@@ -173,6 +182,8 @@ module.exports = (req, res) => {
                     })
                 }
             });
+
+
         });
 
     } else if (pathname.includes('/cats-find-new-home') && req.method == 'GET') {
