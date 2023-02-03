@@ -8,7 +8,8 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
     if (!req.body) return res.sendStatus(400);
 
-    const accessory = new Accessory(req.body);
+    const {name, description, imageUrl } = req.body;
+    const accessory = new Accessory(name, description, imageUrl);
     await accessory.save();
 
     res.redirect('/');

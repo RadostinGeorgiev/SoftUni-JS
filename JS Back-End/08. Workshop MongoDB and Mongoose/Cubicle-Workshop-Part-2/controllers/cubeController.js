@@ -9,7 +9,8 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
     if (!req.body) return res.sendStatus(400);
 
-    const cube = new Cube(req.body);
+    const {name, description, imageUrl} = req.body;
+    const cube = new Cube(name, description, imageUrl);
     const cubeId = await cube.save();
 
     res.redirect(`/${cubeId._id}/attach`);
@@ -30,6 +31,7 @@ router.get('/:cubeId/attach', async (req, res) => {
 
 router.post('/:cubeId/attach', async (req, res) => {
     const cube = await Cube.findById(req.params.cubeId);
+    
     const accessoryId = req.body.accessory;
     cube.accessories.push(accessoryId);
 

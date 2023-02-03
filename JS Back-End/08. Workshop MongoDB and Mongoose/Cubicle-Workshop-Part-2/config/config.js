@@ -2,8 +2,8 @@ const path = require('path');
 
 module.exports = {
     development: {
-        port: process.env.PORT || 3000,
-        dir: {
+        PORT: process.env.PORT || 3000,
+        DIR: {
             root: __dirname,
             static: path.join(__dirname, 'static'),
             views: path.join(__dirname, 'views'),
