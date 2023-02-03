@@ -1,0 +1,37 @@
+[{
+  "_id": {
+    "$oid": "63d1b44de40199cbead8f7e3"
+  },
+  "name": "Gan356 Air SM",
+  "description": "Gan356 Air SM Description",
+  "imageUrl": "https://ae01.alicdn.com/kf/HTB1CSddXRxRMKJjy0Fdq6yifFXa6/Gan-356-Air-SM-3x3-Black-Magic-cube-GAN-Air-SM-Magnetic-3x3x3-Speed-cube-gans.jpg",
+  "difficultyLevel": 3,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d1b614aab99ffa95243743"
+  },
+  "name": "Eco-Dark",
+  "description": "Eco-Dark Description",
+  "imageUrl": "https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg",
+  "difficultyLevel": 6,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d20cfc724e42703ce710de"
+  },
+  "name": "Pyraminx",
+  "description": "Pyraminx Description",
+  "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61izOzq%2BBAL._SY355_.jpg",
+  "difficultyLevel": 1,
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63d20d2b724e42703ce710e1"
+  },
+  "name": "Megaminx",
+  "description": "Megaminx Description",
+  "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61HpQqVQ37L._SY355_.jpg",
+  "difficultyLevel": 3,
+  "__v": 0
+}]
