@@ -7,7 +7,8 @@ module.exports = {
             root: __dirname,
             static: path.join(__dirname, 'static'),
             views: path.join(__dirname, 'views'),
-        }
+        },
+        SECRET: 'backend-secret-key',   // Define a secret key for signing the JWT
     },
     production: {}
 };

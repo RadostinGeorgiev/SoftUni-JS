@@ -1,8 +1,8 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
+const cookieParser = require('cookie-parser');
 
 const title = require('../middlewares/defaultTitle');
-const config = require('./config');
 
 module.exports = (app) => {
     //Setup the view engine
@@ -12,7 +12,10 @@ module.exports = (app) => {
     app.set('view engine', 'hbs');
 
     //Setup the body parser
-    app.use(express.urlencoded({ extended: false }))                         // parse application/x-www-form-urlencoded
+    app.use(express.urlencoded({ extended: false }));
+
+    //Setup the cookie parser
+    app.use(cookieParser());
 
     // Setup the static files
     app.use(express.static('static'));
