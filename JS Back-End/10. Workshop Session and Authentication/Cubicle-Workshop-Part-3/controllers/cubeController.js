@@ -10,8 +10,10 @@ router.get('/create', (req, res) => {
 router.post('/create', async (req, res) => {
     if (!req.body) return res.sendStatus(400);
 
+    console.log(req.user);
+
     const { name, description, imageUrl } = req.body;
-    const cube = new Cube(name, description, imageUrl);
+    const cube = new Cube({name, description, imageUrl});
     const cubeId = await cube.save();
 
     res.redirect(`/${cubeId._id}/attach`);

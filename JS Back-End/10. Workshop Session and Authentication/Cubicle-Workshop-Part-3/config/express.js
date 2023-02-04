@@ -2,6 +2,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 
+const auth = require('../middlewares/auth');
 const title = require('../middlewares/defaultTitle');
 
 module.exports = (app) => {
@@ -19,6 +20,9 @@ module.exports = (app) => {
 
     // Setup the static files
     app.use(express.static('static'));
+
+    // Setup the Authentication middleware
+    app.use(auth);
 
     //TODO: Setup the default title
     app.use(title('Cubicle'));
