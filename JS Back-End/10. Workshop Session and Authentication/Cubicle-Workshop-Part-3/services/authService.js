@@ -36,7 +36,10 @@ const login = async (username, password) => {
     }
 
     // If the credentials are valid, create and sign a JWT
-    const payload = { username: user.username };
+    const payload = { 
+        _id: user._id,
+        username: user.username 
+    };
     const token = await jwt.sign(payload, SECRET, { expiresIn: '4h' });
 
 

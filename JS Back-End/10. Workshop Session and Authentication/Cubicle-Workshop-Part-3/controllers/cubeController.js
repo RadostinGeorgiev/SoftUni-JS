@@ -11,13 +11,20 @@ router.post('/create', isAuthenticated, async (req, res) => {
     if (!req.body) return res.sendStatus(400);
 
     const { name, description, imageUrl, difficultyLevel } = req.body;
-    const cube = await createCube(name, description, imageUrl, difficultyLevel);
+    const cube = await createCube({
+        name,
+        description,
+        imageUrl,
+        difficultyLevel,
+        owner: req.user._id,
+    });
 
     res.redirect(`/${cube._id}/attach`);
 });
 
 router.get('/:cubeId', async (req, res) => {
     const cube = await getCube(req.params.cubeId);
+    cube.isOwner = cube.owner == req.user._id;
 
     res.render('cube/details', { cube });
 });
@@ -51,7 +58,13 @@ router.post('/:cubeId/edit', isAuthenticated, async (req, res) => {
     if (!req.body) return res.sendStatus(400);
 
     const { name, description, imageUrl, difficultyLevel } = req.body;
-    const cube = await editCube(req.params.cubeId, name, description, imageUrl, difficultyLevel);
+    const cube = await editCube(req.params.cubeId, {
+        name,
+        description,
+        imageUrl,
+        difficultyLevel,
+        owner: req.user._id,
+    });
 
     res.redirect(`/cube/${cube._id}`);
 });

@@ -29,7 +29,7 @@ const cubeSchema = new Schema({
         type: Types.ObjectId,
         ref: 'Accessory'
     }],
-    creator_id: {
+    owner: {
         type: Types.ObjectId,
         ref: 'User'
     }

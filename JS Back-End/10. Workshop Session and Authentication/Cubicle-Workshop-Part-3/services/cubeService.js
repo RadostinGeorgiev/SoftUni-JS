@@ -1,26 +1,26 @@
 const Cube = require('../models/Cube');
 const Accessory = require('../models/Accessory');
 
-const createCube = (name, description, imageUrl, difficultyLevel) => {
-    const cube = new Cube({ name, description, imageUrl, difficultyLevel });
+const createCube = ({ name, description, imageUrl, difficultyLevel, owner }) => {
+    const cube = new Cube({ name, description, imageUrl, difficultyLevel, owner });
     const cubeId = cube.save();
 
     return cubeId;
 }
 
-const getCube = (cubeId) => Cube.findById(cubeId).populate('accessories').lean();
+const getCube = async (cubeId) => await Cube.findById(cubeId).populate('accessories').lean();
 
-const editCube = async (cubeId, name, description, imageUrl, difficultyLevel) => {
+const editCube = async (cubeId, { name, description, imageUrl, difficultyLevel, owner }) => {
     try {
         const cube = await Cube.findByIdAndUpdate(cubeId,
-            { name, description, imageUrl, difficultyLevel },
+            { name, description, imageUrl, difficultyLevel, owner },
             {
                 new: true,
                 runValidators: true,
                 lean: true
             }).exec();
 
-            return cube;
+        return cube;
 
     } catch (error) {
         console.error(error.message)
