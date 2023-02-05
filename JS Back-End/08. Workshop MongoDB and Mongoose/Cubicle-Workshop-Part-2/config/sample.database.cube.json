@@ -6,7 +6,15 @@
   "description": "Gan356 Air SM Description",
   "imageUrl": "https://ae01.alicdn.com/kf/HTB1CSddXRxRMKJjy0Fdq6yifFXa6/Gan-356-Air-SM-3x3-Black-Magic-cube-GAN-Air-SM-Magnetic-3x3x3-Speed-cube-gans.jpg",
   "difficultyLevel": 3,
-  "__v": 0
+  "__v": 2,
+  "accessories": [
+    {
+      "$oid": "63d42019f077b7f8dd94c947"
+    },
+    {
+      "$oid": "63d420d2f077b7f8dd94c94a"
+    }
+  ]
 },{
   "_id": {
     "$oid": "63d1b614aab99ffa95243743"
@@ -15,7 +23,12 @@
   "description": "Eco-Dark Description",
   "imageUrl": "https://thingsidesire.com/wp-content/uploads/2018/06/Eco-Dark-Rubik%E2%80%99s-Cube2.jpg",
   "difficultyLevel": 6,
-  "__v": 0
+  "__v": 1,
+  "accessories": [
+    {
+      "$oid": "63d420d2f077b7f8dd94c94a"
+    }
+  ]
 },{
   "_id": {
     "$oid": "63d20cfc724e42703ce710de"
@@ -34,4 +47,46 @@
   "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/61HpQqVQ37L._SY355_.jpg",
   "difficultyLevel": 3,
   "__v": 0
+},{
+  "_id": {
+    "$oid": "63d426fac962ebbc4fac360f"
+  },
+  "name": "Mirror Rubik Cube",
+  "description": "Mirror rubik's cube has an unique design, of which the rule is the same shape but not same color.",
+  "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc4_4658UOvrX3mP1oQJHFpg0Uh16hiPydZXZkVbprMoJQOMzLd6-2LJbKEWkBtEg4NY8&usqp=CAU",
+  "difficultyLevel": 5,
+  "__v": 1,
+  "accessories": [
+    {
+      "$oid": "63d57363d8dbbe6c619d366b"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "63d42939872ac6e9a4275b5f"
+  },
+  "name": "Windmill Rubik’s cube",
+  "description": "Windmill Rubik’s cube may look like a regular 3*3 cube, but it is nothing like that. It can be solved in two ways that make it attractive to the eyes.",
+  "imageUrl": "https://cdn-cfkdl.nitrocdn.com/RsYdeCXUyMGNzjUpUbtAUDPJnJbVbKpI/assets/static/optimized/rev-58cfe36/wp-content/uploads/2018/06/Windmill-Rubik%E2%80%99s-Cube.jpg",
+  "difficultyLevel": 4,
+  "__v": 1,
+  "accessories": [
+    {
+      "$oid": "63d420d2f077b7f8dd94c94a"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "63d52cdee46c17efb3387481"
+  },
+  "name": "Star Shaped Rubik’s Cube",
+  "description": "The cube comes in the shape of a star with six axes of rotation that can move in different directions at the same time. The star-shaped cube is definitely one of the toughest Rubik’s cube.",
+  "imageUrl": "https://cdn-cfkdl.nitrocdn.com/RsYdeCXUyMGNzjUpUbtAUDPJnJbVbKpI/assets/static/optimized/rev-58cfe36/wp-content/uploads/2018/06/Star-Shaped-Rubik%E2%80%99s-Cube.jpg",
+  "difficultyLevel": 5,
+  "accessories": [
+    {
+      "$oid": "63d420d2f077b7f8dd94c94a"
+    }
+  ],
+  "__v": 1
 }]
