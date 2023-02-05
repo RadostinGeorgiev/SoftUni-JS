@@ -1,6 +1,9 @@
 const router = require('express').Router();
+const cookieParser = require('cookie-parser');
 
+const { isAuthenticated } = require('../middlewares/guards');
 const authService = require('../services/authService');
+const TOKEN_NAME = require('../config/config').development.TOKEN_NAME;
 
 router.get('/register', (req, res) => {
     res.render('register');
@@ -45,7 +48,7 @@ router.post('/login', async (req, res) => {
         const { username, password } = req.body;
 
         const token = await authService.login(username, password);
-        res.cookie('auth', token, { httpOnly: true });
+        res.cookie(TOKEN_NAME, token, { httpOnly: true });
 
         // Return success message
         console.log('Successfully logged in');
@@ -58,6 +61,12 @@ router.post('/login', async (req, res) => {
     }
 
     res.redirect('/');
+});
+
+router.get('/logout', isAuthenticated, (req, res) => {
+    res.clearCookie(TOKEN_NAME);
+    return res.status(200)
+        .redirect('/');
 });
 
 module.exports = router;

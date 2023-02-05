@@ -22,7 +22,7 @@ module.exports = (app) => {
     app.use(express.static('static'));
 
     // Setup the Authentication middleware
-    app.use(auth);
+    app.use(auth.authenticate);
 
     //TODO: Setup the default title
     app.use(title('Cubicle'));

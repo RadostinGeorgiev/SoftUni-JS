@@ -2,7 +2,7 @@ const User = require('../models/User');
 const { jwt } = require('../utils/jsonwebtoken');
 
 // Define a secret key for signing the JWT
-const secret = require('../config/config').development.SECRET;
+const SECRET = require('../config/config').development.TOKEN_SECRET;
 
 const getUser = async (username) => {
     try {
@@ -37,7 +37,7 @@ const login = async (username, password) => {
 
     // If the credentials are valid, create and sign a JWT
     const payload = { username: user.username };
-    const token = await jwt.sign(payload, secret, { expiresIn: '4h' });
+    const token = await jwt.sign(payload, SECRET, { expiresIn: '4h' });
 
 
     return token;

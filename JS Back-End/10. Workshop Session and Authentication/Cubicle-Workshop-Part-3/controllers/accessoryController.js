@@ -1,11 +1,13 @@
 const router = require('express').Router();
+const { isAuthenticated } = require('../middlewares/guards');
+
 const Accessory = require('../models/Accessory');
 
-router.get('/create', (req, res) => {
+router.get('/create',  isAuthenticated, (req, res) => {
     res.render('accessory');
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create',  isAuthenticated, async (req, res) => {
     if (!req.body) return res.sendStatus(400);
 
     const { name, description, imageUrl } = req.body;

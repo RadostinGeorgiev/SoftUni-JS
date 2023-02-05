@@ -8,7 +8,8 @@ module.exports = {
             static: path.join(__dirname, 'static'),
             views: path.join(__dirname, 'views'),
         },
-        SECRET: 'backend-secret-key',   // Define a secret key for signing the JWT
+        TOKEN_NAME: 'auth',
+        TOKEN_SECRET: 'backend-secret-key',   // Define a secret key for signing the JWT
     },
     production: {}
 };
